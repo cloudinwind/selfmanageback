@@ -304,6 +304,7 @@ public class UserService {
         return userDTO;
     }
 
+    // 用户使用邮箱 注册或登录
     public Object registerOrLoginWithMail(String mail,String password) {
 
         UserExample userExample = new UserExample();
@@ -313,6 +314,7 @@ public class UserService {
         User updateUser = new User();
         if(password!=null)
             updateUser.setPassword(DigestUtils.sha256Hex(password+salt));
+        // 如果表中有该邮件对应的用户, 则登录
         if(users.size() != 0){//登录
             User dbUser = users.get(0);
             UserDTO userDTO = getUserDTO(dbUser);

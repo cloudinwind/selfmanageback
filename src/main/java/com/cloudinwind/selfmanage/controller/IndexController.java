@@ -50,14 +50,20 @@ public class IndexController {
                         @RequestParam(name = "search", required = false) String search,
                         @RequestParam(name = "tag", required = false) String tag,
                         @RequestParam(name = "sort", required = false) String sort) {
+        // 判断用户之前是否已经登录
         UserDTO loginuser = (UserDTO) request.getAttribute("loginUser");
+        System.out.println("loginUser:");
         UserAccount userAccount =null;
         if(loginuser!=null){
             userAccount = new UserAccount();
             BeanUtils.copyProperties(loginuser,userAccount);
             userAccount.setUserId(loginuser.getId());
+            System.out.println("loginUser:"+loginuser.toString());
         }
+        // 查询文章
+        // 查询置顶帖 其中查询条件为 status=2 或 status=3
         List<QuestionDTO> topQuestions = questionService.listTopwithColumn(search, tag, sort,column2);
+        // 查询普通贴 查询条件为 status=0(普通帖) 或 status=1(加精贴)
         PaginationDTO pagination = questionService.listwithColumn(search, tag, sort, page,size,column2,userAccount);
         List<String> tags = hotTagCache.getHots();
         List<User> loginUsers = loginUserCache.getLoginUsers();

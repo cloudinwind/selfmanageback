@@ -13,15 +13,18 @@
 </head>
 <body>
 
+<!--最顶部导航栏-->
 <div th:insert="~{common/header :: nav}"></div>
-
+<!--顶部导航栏  首页、提问、分享、建议-->
 <div th:insert="~{common/header :: sub_nav}"></div>
 
 
 
 <div class="layui-container">
   <div class="layui-row layui-col-space15">
+    <!--帖子显示 start-->
     <div class="layui-col-md8">
+      <!--置顶帖子显示 start-->
       <div class="fly-panel">
         <div class="fly-panel-title fly-filter">
           <a>欢迎您的到来~</a>
@@ -35,6 +38,7 @@
           </a>
 
         </div>
+
         <ul class="fly-list">
           <li th:each="question : ${topQuestions}">
             <a th:href="${'/user/'+question.user.id}" class="fly-avatar niter-avatar">
@@ -77,9 +81,11 @@
 
         </ul>
       </div>
+      <!--置顶帖子显示 end-->
 
+      <!-- 普通帖子显示 start -->
       <div class="fly-panel" style="margin-bottom: 0;">
-        
+        <!--普通帖子上边导航 综合、周榜、月榜、精华 start-->
         <div class="fly-panel-title fly-filter">
           <a href="/forum" th:class="${sort == 'new' || sort == null ? 'layui-this':''}">综合</a>
           <span class="fly-mid"></span>
@@ -97,7 +103,8 @@
             <a th:class="${sort == 'no' ? 'layui-this  layui-hide-xs':' layui-hide-xs'}" th:href="@{/forum/(sort='no',search=${search},tag=${tag},column=${column})}">抢沙发</a>
           </span>
         </div>
-
+        <!--普通帖子上边导航 综合、周榜、月榜、精华 end-->
+        <!--普通帖子显示 start-->
         <ul class="fly-list">          
           <li th:each="question : ${pagination.data}">
            <div th:if="${question.status==0||question.status==1}">
@@ -139,8 +146,9 @@
            </div>
           </li>
         </ul>
-
-<div style="text-align: center">
+        <!--普通帖子显示 end-->
+        <!--普通帖子的下面分页导航 start-->
+        <div style="text-align: center">
           <div class="laypage-main"  ><!-- 分页展示 -->
                   <a th:if="${pagination.showFirstPage}" th:href="@{/forum/(page=1,search=${search},tag=${tag},sort=${sort},column=${column})}"
                      aria-label="Previous" class="laypage-prev">
@@ -165,19 +173,22 @@
                      aria-label="Next" class="laypage-next">
                    &raquo;
                   </a>
-
           </div>
-</div>
-
+        </div>
+        <!--普通帖子的下面分页导航 end-->
       </div>
+      <!-- 普通帖子显示 end -->
     </div>
+    <!--帖子显示 end-->
+
       <th:block th:insert="~{common/sider :: index}"></th:block>
   </div>
 </div>
 
 
-<!--script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script-->
+<!--底部 start-->
 <th:block th:insert="~{common/footer :: foot}"></th:block>
+<!--底部end-->
 <script>
   layui.cache.page = 'index';
   layui.cache.user = {

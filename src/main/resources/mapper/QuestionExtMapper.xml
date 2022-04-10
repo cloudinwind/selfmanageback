@@ -99,6 +99,7 @@
         limit #{offset},#{size}
     </select>
 
+    <!-- 查询置顶帖子-->
     <select id="selectTop" parameterType="com.cloudinwind.selfmanage.dto.QuestionQueryDTO"
             resultMap="BaseResultMap">
         select * from question

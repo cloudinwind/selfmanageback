@@ -80,6 +80,7 @@ public class QuestionService {
 
 
 
+    // 查询普通贴
     public PaginationDTO listwithColumn(String search, String tag, String sort, Integer page, Integer size, Integer column2,UserAccount userAccount) {
 
         if (StringUtils.isNotBlank(search)) {
@@ -93,17 +94,16 @@ public class QuestionService {
         }
 
 
-        //
+        // 总页数, 为下面分页做准备
         Integer totalPage;
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
         questionQueryDTO.setSearch(search);
+
         if(column2!=null) questionQueryDTO.setColumn2(column2);
         if(StringUtils.isNotBlank(tag)){
             tag = tag.replace("+", "").replace("*", "").replace("?", "");
             questionQueryDTO.setTag(tag);
         }
-
-      //  ColumnEnum columnEnum = ColumnEnum.
 
         for (SortEnum sortEnum : SortEnum.values()) {
             if (sortEnum.name().toLowerCase(Locale.ENGLISH).equals(sort)) {
@@ -119,8 +119,9 @@ public class QuestionService {
             }
         }
 
-
+        // 查询总条数
         Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
+        // size指的是一页的条数
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
@@ -133,6 +134,7 @@ public class QuestionService {
             page = totalPage;
         }
 
+        // 起始页 一般从0开始
         Integer offset = page < 1 ? 0 : size * (page - 1);
         questionQueryDTO.setSize(size);
         questionQueryDTO.setOffset(offset);
@@ -143,7 +145,7 @@ public class QuestionService {
          User user = userMapper.selectByPrimaryKey(question.getCreator());
             UserAccountExample userAccountExample2 = new UserAccountExample();
             userAccountExample2.createCriteria().andUserIdEqualTo(user.getId());
-         //   System.out.println("user.getId()："+user.getId());
+
             List<UserAccount> userAccounts = userAccountMapper.selectByExample(userAccountExample2);
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
@@ -294,8 +296,10 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    // 查询置顶帖
     public List<QuestionDTO> listTopwithColumn(String search, String tag, String sort, Integer column2) {
 
+        // 判断查询条件是否为空
         if (StringUtils.isNotBlank(search)) {
             String[] tags = StringUtils.split(search, " ");
             search = Arrays
@@ -305,19 +309,22 @@ public class QuestionService {
                     .filter(StringUtils::isNotBlank)
                     .collect(Collectors.joining("|"));
         }
-        //
-      //  Integer totalPage;
+
+        //  Integer totalPage;
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        // 专栏不为空
         if(column2!=null) questionQueryDTO.setColumn2(column2);
         questionQueryDTO.setSearch(search);
 
+        // 标签不为空
         if(StringUtils.isNotBlank(tag)){
             tag = tag.replace("+", "").replace("*", "").replace("?", "");
             questionQueryDTO.setTag(tag);
         }
 
-
+        // 判断排序方式  周榜、月榜、最新、精华、不排序(抢沙发)
         for (SortEnum sortEnum : SortEnum.values()) {
+
             if (sortEnum.name().toLowerCase(Locale.ENGLISH).equals(sort)) {
                 questionQueryDTO.setSort(sort);
 
@@ -335,6 +342,7 @@ public class QuestionService {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
       //  PaginationDTO paginationDTO = new PaginationDTO();
         for (Question question : questions) {
+            // 根据id查询用户
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             UserAccountExample userAccountExample = new UserAccountExample();
             userAccountExample.createCriteria().andUserIdEqualTo(user.getId());

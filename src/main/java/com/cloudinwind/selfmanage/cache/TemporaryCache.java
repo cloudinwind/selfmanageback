@@ -15,6 +15,7 @@ public class TemporaryCache {
             .expirationPolicy(ExpirationPolicy.CREATED)
             .variableExpiration()
             .build();
+
     public void putMailCode(String mail,String code){
         mailCode.put(mail,code);
     }
