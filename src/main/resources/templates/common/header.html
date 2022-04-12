@@ -200,16 +200,16 @@
       </th:block>
     </ul>
 
+    <!--发表新帖-->
     <div class="fly-column-right layui-hide-xs">
       <span class="fly-search"><i class="layui-icon"></i></span>
       <a href="/p/publish" target="_blank" class="layui-btn">发表新帖</a>
     </div>
-    <!--div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-      <a href="/p/publish" target="_blank" class="layui-btn">发表新帖</a>
-    </div-->
   </div>
 </div>
 
+
+<!--看看模块, 顶部分类导航栏-->
 <div th:fragment="news_nav" class="fly-panel fly-column">
   <div class="layui-container">
     <ul class="layui-clear">
@@ -224,20 +224,7 @@
       <li th:class="${column == 8}? 'layui-this' : ''"><a href="/news?column=8">国内</a></li>
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
 
-      <!-- 用户登入后显示 -->
-      <!--th:block th:if="${session.user!=null}">
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a target="_blank" href="/user/p/myPosts">我发表的贴</a></li>
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a target="_blank" href="/user/p/likes">我收藏的贴</a></li>
-      </th:block-->
     </ul>
-
-    <!--div class="fly-column-right layui-hide-xs">
-      <span class="fly-search"><i class="layui-icon"></i></span>
-      <a href="/p/publish" target="_blank" class="layui-btn">发表新帖</a>
-    </div>
-    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-      <a href="/p/publish" target="_blank" class="layui-btn">发表新帖</a>
-    </div-->
   </div>
 </div>
 

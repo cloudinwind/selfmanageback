@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 @Controller
-public class IndexController {
+public class ForumIndexController {
 
     @Autowired
     private QuestionService questionService;

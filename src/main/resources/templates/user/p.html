@@ -1,4 +1,4 @@
-
+<!--用户管理 发布和收藏的帖子管理-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -8,9 +8,12 @@
   <script src="/js/moment.js" type="application/javascript"></script>
 </head>
 <body>
+
+<!--头部导航-->
 <div th:insert="~{common/header :: nav}"></div>
 
 <div class="layui-container fly-marginTop fly-user-main">
+  <!--左侧导航-->
   <th:block th:insert="~{common/sider :: user}"></th:block>
   <div class="site-tree-mobile layui-hide">
     <i class="layui-icon">&#xe602;</i>
@@ -22,19 +25,19 @@
   </div>
   <div class="site-mobile-shade"></div>
   
-  
+  <!--正文内容 start-->
   <div class="fly-panel fly-panel-user" pad20>
-    <!--
-    <div class="fly-msg" style="margin-top: 15px;">
-      您的邮箱尚未验证，这比较影响您的帐号安全，<a href="activate.html">立即去激活？</a>
-    </div>
-    -->
     <div class="layui-tab layui-tab-brief" lay-filter="user">
+      <!--正文上边导航 start-->
       <ul class="layui-tab-title" id="LAY_mine">
         <li  th:class="${section=='myPosts'}?'layui-this':''" ><a href="myPosts">我发的帖<span th:if="${section == 'myPosts'}" th:text="'('+${pagination.totalCount}+')'"></span></a></li>
         <li  th:class="${section=='likes'}?'layui-this':''"><a href="likes">收藏的帖<span th:if="${section == 'likes'}" th:text="'('+${pagination.totalCount}+')'"></span></a></li>
       </ul>
+      <!--正文上边导航 end-->
+
+
       <div class="layui-tab-content" style="padding: 20px 0;">
+        <!--列表显示发布的帖子 start-->
         <div th:class="${section=='myPosts'}?'layui-tab-item layui-show':'layui-tab-item'" >
           <ul th:each="question : ${pagination.data}" class="mine-view jie-row">
             <li>
@@ -47,6 +50,8 @@
           </ul>
           <div id="LAY_page"></div>
         </div>
+        <!--列表显示发布的帖子 end-->
+        <!--列表显示收藏的帖子 start-->
         <div id="mine-view" th:class="${section=='likes'}?'layui-tab-item layui-show ':'layui-tab-item'">
           <ul th:each="question : ${pagination.data}" class="mine-like-p jie-row">
             <li th:data-id="${question.id}">
@@ -59,10 +64,12 @@
           </ul>
           <div id="LAY_page1"></div>
         </div>
+        <!--列表显示收藏的帖子 end-->
       </div>
     </div>
+    <!--分页展示 start-->
     <div style="text-align: center">
-      <div class="laypage-main"  ><!-- 分页展示 -->
+      <div class="laypage-main"  >
         <a th:if="${pagination.showFirstPage}" th:href="@{'/user/p/'+${section}(page=1)}"
            aria-label="Previous">
           &laquo;
@@ -89,7 +96,9 @@
 
       </div>
     </div>
+    <!--分页展示 end-->
   </div>
+  <!--正文内容 end-->
 </div>
 
 <th:block th:insert="~{common/footer :: foot}"></th:block>

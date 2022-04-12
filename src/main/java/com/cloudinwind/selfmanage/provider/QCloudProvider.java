@@ -117,6 +117,8 @@ public class QCloudProvider {
                 e.printStackTrace();
             }
         }*/
+
+
         String fileName = getFileName(contentType);
         String imgUrl = uploadtoBucket(fileStream,"img",contentType,user,fileName,contentLength);
         //String imgUrl=initUrl;

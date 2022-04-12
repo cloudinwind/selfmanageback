@@ -55,7 +55,7 @@ public class NotificationService {
         Integer offset = size * (page - 1);
         NotificationExample example = new NotificationExample();
 
-            example.createCriteria()
+        example.createCriteria()
                 .andReceiverEqualTo(userId);
         example.setOrderByClause("gmt_create desc");
 
@@ -71,7 +71,6 @@ public class NotificationService {
             NotificationDTO notificationDTO = new NotificationDTO();
             BeanUtils.copyProperties(notification, notificationDTO);
             notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
-            //System.out.println(notificationDTO.getId()+notificationDTO.getType()+notificationDTO.getTypeName());
             notificationDTOS.add(notificationDTO);
         }
         paginationDTO.setData(notificationDTOS);

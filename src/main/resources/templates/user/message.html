@@ -1,4 +1,4 @@
-
+<!--用户管理 消息管理页面-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -12,6 +12,8 @@
 <div th:insert="~{common/header :: nav}"></div>
 
 <div class="layui-container fly-marginTop fly-user-main">
+
+<!-- 页面左侧导航栏-->
   <th:block th:insert="~{common/sider :: user}"></th:block>
 
 
@@ -24,28 +26,32 @@
     <i class="layui-icon">&#xe602;</i>
   </div>
   <div class="site-mobile-shade"></div>
-  
-  
+  <!--正文消息通知 start-->
   <div class="fly-panel fly-panel-user" pad20>
 	  <div class="layui-tab layui-tab-brief" lay-filter="user" id="LAY_msg" style="margin-top: 15px;">
         <button th:if="${pagination.totalCount>0}" class="layui-btn" id="LAY_readallmsg">一键已读</button>
         <button th:if="${pagination.totalCount>0}" class="layui-btn layui-btn-danger" id="LAY_delallmsg">清空全部消息</button>
         <div  id="LAY_minemsg" style="margin-top: 10px;">
-        <div th:if="${pagination.data==null}" class="fly-none">您暂时没有最新消息</div>
-        <ul class="mine-msg" th:each="notification : ${pagination.data}">
-          <li th:data-id="${notification.id}">
-            <blockquote class="layui-elem-quote">
-              <a th:href="'/user/' + ${notification.notifier}" target="_blank"><cite th:text="${notification.notifierName}"></cite></a><a th:text="${notification.typeName + ' '}"></a><a target="_blank" th:href="@{'/notification/'+ ${notification.id}}"><cite th:text="${notification.outerTitle}"></cite></a>
-              <span th:if="${notification.status == 1}" class="layui-badge layui-bg-green">已读</span>
-              <span th:if="${notification.status == 0}" class="layui-badge layui-bg-red">未读</span>
-            </blockquote>
-            <p><span th:text="${#dates.format(notification.gmtCreate,'yyyy-MM-dd HH:mm')}"></span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
-          </li>
-        </ul>
-      </div>
-	  </div>
+          <div th:if="${pagination.data==null}" class="fly-none">您暂时没有最新消息</div>
+
+            <!--列表显示所有消息 start-->
+            <ul class="mine-msg" th:each="notification : ${pagination.data}">
+              <li th:data-id="${notification.id}">
+                <blockquote class="layui-elem-quote">
+                  <a th:href="'/user/' + ${notification.notifier}" target="_blank"><cite th:text="${notification.notifierName}"></cite></a><a th:text="${notification.typeName + ' '}"></a><a target="_blank" th:href="@{'/notification/'+ ${notification.id}}"><cite th:text="${notification.outerTitle}"></cite></a>
+                  <span th:if="${notification.status == 1}" class="layui-badge layui-bg-green">已读</span>
+                  <span th:if="${notification.status == 0}" class="layui-badge layui-bg-red">未读</span>
+                </blockquote>
+                <p><span th:text="${#dates.format(notification.gmtCreate,'yyyy-MM-dd HH:mm')}"></span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
+              </li>
+            </ul>
+            <!--列表显示所有消息 end-->
+          </div>
+	    </div>
       <div style="text-align: center">
-      <div class="laypage-main"  ><!-- 分页展示 -->
+
+      <!-- 分页展示 start -->
+      <div class="laypage-main"  >
         <a th:if="${pagination.showFirstPage}" th:href="@{/user/message(page=1)}"
            aria-label="Previous">
           &laquo;
@@ -71,9 +77,10 @@
         </a>
 
       </div>
+      <!-- 分页展示 end -->
     </div>
-	</div>
-
+  </div>
+  <!--正文消息通知 end-->
 
 
 </div>

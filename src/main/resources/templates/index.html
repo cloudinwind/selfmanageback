@@ -28,17 +28,15 @@
       <div class="fly-panel">
         <div class="fly-panel-title fly-filter">
           <a>欢迎您的到来~</a>
-          <!--a href="#signin" class="html5plus-hide layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin" style="color: #FF5722;">去签到</a-->
           <a th:if="${loginUser==null}" href="/sso/login" class="layui-hide-sm fly-right html5plus-display" id="LAY_gologin" style="color: #FF5722;display: none">注册/登录</a>
           <a th:if="${loginUser!=null}" class="fly-nav-avatar niter-avatar layui-hide-sm fly-right html5plus-display html5plus-user-icon" id="LAY_goUserCenter" style="color: #FF5722;display: none">
-              <!--img th:src="${session.user.avatarUrl}"-->
               <i th:if="${loginUser.vipRank==1}" class="layui-icon fly-list-kiss layui-hide-xs" title="红砖会员等级：LV1">&#xe735</i>
               <cite onclick="javascript:window.open('/user/set/info')" th:class="${loginUser.vipRank==1? 'fly-list-kiss':''}" th:text="${loginUser.name}"></cite>
-              <!--span onclick="javascript:window.open('/user/message')" th:if="${session.unreadCount!=0}" class="layui-badge" th:text="${session.unreadCount}"></span-->
           </a>
 
         </div>
 
+        <!--列表显示置顶帖子-->
         <ul class="fly-list">
           <li th:each="question : ${topQuestions}">
             <a th:href="${'/user/'+question.user.id}" class="fly-avatar niter-avatar">
@@ -65,9 +63,7 @@
               </a>
               <span th:text="${question.gmtLatestCommentStr}"></span>
               
-              <!--span class="fly-list-kiss layui-hide-xs" title="浏览"><i class="iconfont icon-kiss"></i><span th:text="${question.viewCount}"></span></span-->
               <span class="fly-list-like layui-hide-xs" title="收藏"><i class="layui-icon">&#xe600;</i><span th:text="${question.LikeCount}"></span></span>
-                <!--span class="layui-badge fly-badge-accept layui-hide-xs">已结</span-->
                 <span class="fly-list-nums" >
                 <i class="iconfont layui-hide-xs" title="浏览">&#xe60b;</i> <span class="layui-hide-xs" th:text="${question.viewCount}"></span>
                 <i class="iconfont icon-pinglun1" title="回复" ></i> <span th:text="${question.commentCount}"></span>
@@ -121,6 +117,7 @@
                 <a class="layui-badge" th:if="${question.column2==6}">动态</a>
                 <a class="layui-badge" th:if="${question.column2==9}">其它</a>
                 <a th:if="${question.permission==10}" class="fly-list-like layui-hide-xs" title="会员尊享"><i class="layui-icon">&#xe735</i></a>
+                <!--帖子标题-->
                 <a th:href="@{'/p/'+ ${question.id}}" th:text="${question.title}" th:title="${question.title}" th:style="${question.permission==10? 'color:red':''}"></a>
               <a th:if="${question.viewCount>100}" class="fly-list-like layui-hide-xs" title="烫烫烫"><i  class="layui-icon" style="font-size: 20px">&#xe756;</i></a>
             </h2>

@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
+<!--用户管理页面左侧导航栏-->
 <ul th:fragment="user" class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
     <li class="layui-nav-item">
         <a th:href="${'/user/'+loginUser.id}" target="_blank">
@@ -173,11 +174,11 @@
 
     <div class="fly-panel" style="">
         <div class="fly-panel-title">
-            点击图片或者QQ扫码加入社区官方交流群
+            点击图片或者QQ扫码加入交流群
         </div>
         <div class="fly-panel-main">
             <a th:href="${@environment.getProperty('site.info.contactQunUrl')}" target="_blank">
-                <img src="/images/qunQrcode.jpg" style="max-width: 100%;" alt="layui"></a>
+                <img src="/images/qunQrcode.png" style="max-width: 100%;" alt="layui"></a>
         </div>
     </div>
 

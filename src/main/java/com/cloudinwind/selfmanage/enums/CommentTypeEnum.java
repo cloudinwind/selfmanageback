@@ -1,8 +1,8 @@
 package com.cloudinwind.selfmanage.enums;
 
 public enum CommentTypeEnum {
-    QUESTION(1),
-    COMMENT(2),
+    QUESTION(1),    // 问题的评论
+    COMMENT(2),     // 评论的评论
     SUB_COMMENT(3),
     TALK(11),
     TALK_COMMENT(12),

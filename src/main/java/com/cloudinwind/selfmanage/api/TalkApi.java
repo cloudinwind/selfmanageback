@@ -99,11 +99,9 @@ public class TalkApi {
             ,@RequestParam(value = "creator", required = false) Long creator
             ,@RequestParam(value = PageConstant.PAGE_NUM, required = false, defaultValue = PageConstant.PAGE_NUM_DEFAULT) Integer page
             ,@RequestParam(value = PageConstant.PAGE_SIZE, required = false, defaultValue = PageConstant.PAGE_SIZE_DEFAULT) Integer size
-            //,@RequestParam(value = PageConstant.PAGE_OFFSET, required = false, defaultValue = PageConstant.PAGE_OFFSET_DEFAULT) Integer offset
             ,@RequestParam(value = PageConstant.SORT, required = false, defaultValue = PageConstant.PAGE_SORT_DEFAULT) String sort
             ,@RequestParam(value = PageConstant.ORDER, required = false, defaultValue = PageConstant.PAGE_ORDER_DEFAULT) String order
     ) {
-        //UserDTO loginUser = (UserDTO) request.getAttribute("loginUser");
         TalkQueryDTO talkQueryDTO = new TalkQueryDTO();
         talkQueryDTO.setPage(page);
         talkQueryDTO.setCreator(creator);
@@ -113,7 +111,6 @@ public class TalkApi {
         talkQueryDTO.setSort(sort);
         talkQueryDTO.setOrder(order);
         talkQueryDTO.convert();
-        //PaginationDTO paginationDTO = commentService.listByCommentQueryDTO(commentQueryDTO);
         return ResultDTO.okOf(talkService.list(talkQueryDTO,null));
     }
 
