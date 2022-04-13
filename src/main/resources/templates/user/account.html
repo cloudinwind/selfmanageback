@@ -1,3 +1,4 @@
+<!--用户个人信息管理 账户中心-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,9 +7,11 @@
     <script src="/js/community.js" type="application/javascript"></script>
 </head>
 <body>
+<!--头部导航栏-->
 <div th:insert="~{common/header :: nav}"></div>
 
 <div class="layui-container fly-marginTop fly-user-main">
+    <!--左侧导航-->
     <th:block th:insert="~{common/sider :: user}"></th:block>
 
     <div class="site-tree-mobile layui-hide">
@@ -21,17 +24,20 @@
     </div>
     <div class="site-mobile-shade"></div>
 
-
+    <!--正文内容 start-->
     <div class="fly-panel fly-panel-user" pad20>
         <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <!--正文上方导航 tab-->
             <ul class="layui-tab-title" id="LAY_mine">
                 <li class="layui-this" lay-id="email">我的邮箱</li>
                 <li th:if="${1==smsEnable}" lay-id="phone">我的手机</li>
                 <li lay-id="bind">第三方账号</li>
                 <li lay-id="pass">设置密码</li>
             </ul>
+            <!--正文中心内容 start-->
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <input type="hidden" name="id" id="id" th:value="${user.id}">
+                <!--我的邮箱 start-->
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
 
                     <div class="layui-form-item">
@@ -51,6 +57,7 @@
                             请输入正确的邮箱号，可修改换绑
                         </div>
                     </div>
+                    <!--验证码按钮 start-->
                     <div class="layui-form-item">
                         <div id="getCodeBtn" style="width: 300px;height: 40px;">
                             <div class="vaptcha-init-main">
@@ -63,6 +70,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--验证码按钮 end-->
                     <div class="layui-form-item">
                         <label for="verifyCode" class="layui-form-label">验证码</label>
                         <div class="layui-input-inline">
@@ -79,6 +87,9 @@
                     </div>
 
                 </div>
+                <!--我的邮箱 end-->
+
+                <!--我的手机 start-->
                 <div th:if="${1==smsEnable}" class="layui-form layui-form-pane layui-tab-item">
 
                     <div class="layui-form-item">
@@ -127,12 +138,15 @@
                     </div>
 
                 </div>
+                <!--我的手机 end-->
+
+                <!--第三方账号-->
                 <div class="layui-form layui-form-pane layui-tab-item">
                     <ul class="app-bind">
                         <li th:class="${user.qqAccountId!=null}?'fly-msg app-havebind':'fly-msg'">
                             <i class="iconfont icon-qq"></i>
                             <th:block th:if="${user.qqAccountId!=null}">
-                                <span>已成功绑定，您可以使用QQ帐号直接登录尼特社区，当然，您也可以</span>
+                                <span>已成功绑定，您可以使用QQ帐号直接登录CrossTheWorld，当然，您也可以</span>
                                 <a href="javascript:authLoginQq();" class="html5plus-display" title="更换qq账号"
                                    style="display: none">更换绑定</a>
                                 <a th:href="${'https://graph.qq.com/oauth2.0/authorize?client_id='+@environment.getProperty('qq.client.id')+'&redirect_uri='+@environment.getProperty('qq.redirect.uri')+'&response_type=code&state=1'}"
@@ -145,13 +159,13 @@
                                 <a href="javascript:authLoginQq();" class="acc-bind html5plus-display"
                                    style="display: none" type="qq_id"
                                    onclick="layer.msg('正在绑定qq', {icon:16, shade: 0.1, time:0})">立即绑定</a>
-                                <span>，即可使用QQ帐号登录尼特社区</span>
+                                <span>，即可使用QQ帐号登录CrossTheWorld</span>
                             </th:block>
                         </li>
                         <li th:class="${user.weiboAccountId!=null}?'fly-msg app-havebind':'fly-msg'">
                             <i class="iconfont icon-weibo"></i>
                             <th:block th:if="${user.weiboAccountId!=null}">
-                                <span>已成功绑定，您可以使用微博账号直接登录尼特社区，当然，您也可以</span>
+                                <span>已成功绑定，您可以使用微博账号直接登录CrossTheWorld，当然，您也可以</span>
                                 <a href="javascript:authLoginWeibo();" class="html5plus-display" title="更换微博账号"
                                    style="display: none">更换绑定</a>
                                 <a th:href="${'https://api.weibo.com/oauth2/authorize?client_id='+@environment.getProperty('weibo.client.id')+'&redirect_uri='+@environment.getProperty('weibo.redirect.uri')+'&response_type=code&state=1&scope=all'}"
@@ -164,13 +178,13 @@
                                 <a th:href="${'https://api.weibo.com/oauth2/authorize?client_id='+@environment.getProperty('weibo.client.id')+'&redirect_uri='+@environment.getProperty('weibo.redirect.uri')+'&response_type=code&state=1&scope=all'}"
                                    class="acc-weibo html5plus-hide" type="weibo_id"
                                    onclick="layer.msg('正在绑定微博', {icon:16, shade: 0.1, time:0})">立即绑定</a>
-                                <span>，即可使用微博帐号登录尼特社区</span>
+                                <span>，即可使用微博帐号登录CrossTheWorld</span>
                             </th:block>
                         </li>
                         <li th:class="${user.baiduAccountId!=null}?'fly-msg app-havebind':'fly-msg'">
                             <th:block th:if="${user.baiduAccountId!=null}">
                                 <i><img src="/images/baidu120c.png" style="height: 28px"></i>
-                                <span>已成功绑定，您可以使用百度账号直接登录尼特社区，当然，您也可以</span>
+                                <span>已成功绑定，您可以使用百度账号直接登录CrossTheWorld，当然，您也可以</span>
                                 <a th:href="${'https://openapi.baidu.com/oauth/2.0/authorize?client_id='+@environment.getProperty('baidu.client.id')+'&redirect_uri='+@environment.getProperty('baidu.redirect.uri')+'&response_type=code&state=1'}">更换绑定</a>
                             </th:block>
                             <th:block th:if="${user.baiduAccountId==null}">
@@ -178,13 +192,13 @@
                                 <a th:href="${'https://openapi.baidu.com/oauth/2.0/authorize?client_id='+@environment.getProperty('baidu.client.id')+'&redirect_uri='+@environment.getProperty('baidu.redirect.uri')+'&response_type=code&state=1'}"
                                    class="acc-weibo" type="weibo_id"
                                    onclick="layer.msg('正在绑定百度', {icon:16, shade: 0.1, time:0})">立即绑定</a>
-                                <span>，即可使用百度帐号登录尼特社区</span>
+                                <span>，即可使用百度帐号登录CrossTheWorld</span>
                             </th:block>
                         </li>
                         <li th:class="${user.accountId!=null}?'fly-msg app-havebind':'fly-msg'">
                             <th:block th:if="${user.accountId!=null}">
                                 <i><img src="/images/github120c.png" style="height: 28px"></i>
-                                <span>已成功绑定，您可以使用Github账号直接登录尼特社区，当然，您也可以</span>
+                                <span>已成功绑定，您可以使用Github账号直接登录CrossTheWorld，当然，您也可以</span>
                                 <a th:href="${'https://github.com/login/oauth/authorize?client_id='+@environment.getProperty('github.client.id')+'&redirect_uri='+@environment.getProperty('github.redirect.uri')+'&scope=user&state=1'}">更换绑定</a>
                             </th:block>
                             <th:block th:if="${user.accountId==null}">
@@ -192,12 +206,13 @@
                                 <a th:href="${'https://github.com/login/oauth/authorize?client_id='+@environment.getProperty('github.client.id')+'&redirect_uri='+@environment.getProperty('github.redirect.uri')+'&scope=user&state=1'}"
                                    class="acc-weibo" type="weibo_id"
                                    onclick="layer.msg('正在绑定Github', {icon:16, shade: 0.1, time:0})">立即绑定</a>
-                                <span>，即可使用Github帐号登录尼特社区</span>
+                                <span>，即可使用Github帐号登录CrossTheWorld</span>
                             </th:block>
                         </li>
                     </ul>
                 </div>
 
+                <!--设置密码 start-->
                 <div class="layui-form layui-form-pane layui-tab-item">
                     <div class="layui-form-item">
                         <label for="L_nowpass" class="layui-form-label">当前密码</label>
@@ -225,10 +240,13 @@
                         <button class="layui-btn" key="set-mine" lay-filter="modifyPw" lay-submit>确认修改</button>
                     </div>
                 </div>
+                <!--设置密码 end-->
             </div>
+            <!--正文中心内容 end-->
 
         </div>
     </div>
+    <!--正文内容 end-->
 </div>
 
 <th:block th:insert="~{common/footer :: foot}"></th:block>
@@ -250,6 +268,7 @@
     }).use('fly');
 </script>
 <script src="https://v.vaptcha.com/v3.js"></script>
+<!--更换绑定邮箱-->
 <script type="text/javascript">
     token = '';
     userIp = '';
@@ -291,7 +310,6 @@
 
             //  console.log(obj2.getToken());
 
-//if(phone.length!=11) {sweetAlert("哎哟...", "手机号长度不合法！请重新输入!", "error");return;}
             $.post('/mail/getMailCode', {
                 mail: mail,
                 username: username,
@@ -330,6 +348,7 @@
         }
     }
 
+    // 提交更换邮箱申请
     function submitMail() {
         var verifyCode = $("#verifyCode").val();
         var id = $("#id").val();
@@ -356,39 +375,6 @@
                 });
             }
         });
-
-
-        /*
-         $.getJSON(
-             "/mail/submitMail",
-             "mail="+mail+"&&id="+id,
-             function(result){
-                 if(result.code==200){
-
-                     swal({
-                         title: "绑定成功!",
-                         text: "邮箱绑定成功，刷新后可查看绑定状态!",
-                         icon: "success",
-                         button: "好的!",
-                     }).then((value) => {
-                         window.location.href='/user/set/account#email';
-                 });
-                     // alert("手机号绑定成功，将为您跳转至首页");
-                     // window.location.href='../index.jsp';
-                 }
-
-                 else   {
-                     sweetAlert("哎哟...", "绑定失败，可能该号码已在其他账号上绑定。请刷新后重试！", "error");
-                     swal({
-                         title: "绑定失败!",
-                         text: ""+result.message,
-                         icon: "error",
-                         button: "确认",
-                     });
-                 }
-             },
-             "text"//xml,json,text或不写
-         ); */
 
 
     }
@@ -451,6 +437,8 @@
         vaptchaObj.render()// 调用验证实例 vaptchaObj 的 render 方法加载验证按钮
     })
 </script>
+
+<!--更换绑定的第三方账号-->
 <script type="text/javascript">
     aqq = null;
     aweibo = null;
@@ -576,6 +564,8 @@
 
 
 </script>
+
+<!--更换手机号-->
 <script type="text/javascript">
     isValid = 0;//是否可以发送验证码
     var InterValObj; //timer变量，控制时间
@@ -618,10 +608,7 @@
             $("#btnSendPhoneCode").removeAttr("onclick");
             InterValObj = window.setInterval(SetRemainTimeforPhone, 1000); //启动计时器，1秒执行一次
 
-            //  console.log(obj2.getToken());
-            // var username = $("#username").val();
-//if(phone.length!=11) {sweetAlert("哎哟...", "手机号长度不合法！请重新输入!", "error");return;}
-            $.post('/phone/getPhoneCode', {
+           $.post('/phone/getPhoneCode', {
                 phone: phone,
                 token: token,
                 ip: userIp

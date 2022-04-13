@@ -81,6 +81,7 @@ public class SsoApi {
         return resultDTO;
     }
 
+    // 更换邮箱 验证
     @UserLoginToken
     @ResponseBody//@ResponseBody返回json格式的数据
     @RequestMapping(value = "/mail/submitMail", method = RequestMethod.POST)

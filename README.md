@@ -77,12 +77,24 @@
       比如其他用户对该用户发的贴子或评论点赞/收藏, 该用户会收到消息
     > 通知的消息不仅仅只有点赞, 还有评论
       
-    - 帖子管理, user/p/myPosts: 查询用户发布和收藏的所有帖子, 跳转到帖子管理页面 user/p.html
+    - 帖子管理, user/p/{action}: 
+      user/p/myPosts: 查询用户发布的所有帖子, 跳转到帖子管理页面 user/p.html
+      user/p/likes: 查询用户收藏的所有帖子, 跳转到帖子管理页面 user/p.html 
     
+    - 相关设置, user/set/{action}
+       user/set/account: 跳转到账户中心页面 user/account, 换绑邮箱、手机号、第三方账户, 更换密码
+       user/set/info: 跳转到基本设置页面 user/set, 填写个人资料、更换头像, 查看积分方式、所属用户组
+       
+    
+用户管理:
 - UserController:
 
-用于处理和用户相关的请求
+    - 用于处理和用户相关的请求
     - user/{userId} : 跳转到用户首页
+    
+    - user/set/{action}
+      user/set/avatar : 更换头像
+      
       
 - ForumNotificationController:
 
@@ -191,6 +203,10 @@ group_id为21: 表示该用户是管理员
 **news 表**
 
 所有的看看都对应news表
+
+**thumb 表**
+
+存储用户喜欢的帖子, 说说, 以及评论(通过type来区分喜欢的种类)
 
 
 ==帖子, 说说, 评论通过type来区别==

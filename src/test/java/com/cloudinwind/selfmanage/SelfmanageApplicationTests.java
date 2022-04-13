@@ -3,7 +3,7 @@ package com.cloudinwind.selfmanage;
 import com.cloudinwind.selfmanage.entity.forum.Ad;
 import com.cloudinwind.selfmanage.mapper.AdMapper;
 
-//import org.junit.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -11,14 +11,14 @@ import javax.annotation.Resource;
 @SpringBootTest
 class SelfmanageApplicationTests {
 
-//    @Test
+    @Test
     void contextLoads() {
     }
 
     @Resource
     AdMapper adMapper;
 
-//    @Test
+    @Test
     public void testQuestion()
     {
         Ad ad = new Ad();
