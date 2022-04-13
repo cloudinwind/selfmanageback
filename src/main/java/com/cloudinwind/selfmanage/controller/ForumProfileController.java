@@ -44,6 +44,7 @@ public class ForumProfileController {
     @Value("${sms.enable}")
     private Integer smsEnable;
 
+    // 跳转到消息管理页面
     @UserLoginToken
     @GetMapping("/user/message")
     public String messeage(HttpServletRequest request,
@@ -63,6 +64,7 @@ public class ForumProfileController {
         return "user/message";
     }
 
+    // 跳转到帖子管理页面
     @UserLoginToken
     @GetMapping("/user/p/{action}")
     public String p(HttpServletRequest request,
@@ -91,6 +93,7 @@ public class ForumProfileController {
         return "user/p";
     }
 
+    // 跳转到账户中心或基本设置页面
     @UserLoginToken
     @GetMapping("/user/set/{action}")
     public String getSetPage(HttpServletRequest request,
@@ -112,6 +115,7 @@ public class ForumProfileController {
         model.addAttribute("user", user);
         model.addAttribute("userAccount", userAccount);
         model.addAttribute("userInfo", userInfo);
+        // 跳转到基本设置
         if("info".equals(action)|| StringUtils.isBlank(action)){
             model.addAttribute("section", "info");
             model.addAttribute("sectionName", "我的资料");
@@ -119,6 +123,7 @@ public class ForumProfileController {
             model.addAttribute("navtype", "communitynav");
             return "user/set";
         }
+        // 跳转到账户中心
         if("account".equals(action)){
             model.addAttribute("section", "account");
             model.addAttribute("sectionName", "绑定/更新邮箱账号");

@@ -118,6 +118,8 @@ public class CommentApi {
             ,@ApiImplicitParam(name = PageConstant.SORT, value = "排序字段", defaultValue = PageConstant.PAGE_SORT_DEFAULT, dataType = "String")
             ,@ApiImplicitParam(name = PageConstant.ORDER, value = "排序方向", defaultValue = PageConstant.PAGE_ORDER_DEFAULT, dataType = "String")
     })
+
+    // 查询评论
     @ResponseBody
     @GetMapping(value = "/list")
     public Object commentList(

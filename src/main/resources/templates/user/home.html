@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--用户主页-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title th:text="${user.getName() + '的主页'+@environment.getProperty('site.main.titleInfo')}"></title>
@@ -8,8 +9,11 @@
   <script src="/js/xss.min.js?v=1.5" type="application/javascript"></script>
 </head>
 <body style="margin-top: 0px">
+
+<!--头部导航-->
 <div th:insert="~{common/header :: nav}" style="margin-top: 61px" class="html5plus-hide"></div>
 
+<!--用户个人信息 start-->
 <div class="fly-home fly-panel" style="background-image: url('https://api.lli.cx/bing/api.php');">
   <img th:src="${user.getAvatarUrl()}" th:alt="${user.getName()}" >
   <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
@@ -20,14 +24,9 @@
     <i th:if="${userInfo.sex=='男'}" class="iconfont icon-nan"></i>
     <i th:if="${userInfo.sex=='女'}" class="iconfont icon-nv"></i>
     <i class="layui-badge fly-badge-vip" th:text="${@environment.getProperty('user.group.r'+userAccount.groupId)}">VIP3</i>
-    <!--
-    <span style="color:#c00;">（管理员）</span>
-    <span style="color:#5FB878;">（社区之光）</span>
-    <span>（该号已被封）</span>
-    -->
   </h1>
 
-  <p style="padding: 10px 0; color: #5FB878;">认证信息：尼特社区用户</p>
+  <p style="padding: 10px 0; color: #5FB878;">认证信息：CrossTheWorld 用户</p>
 
   <p class="fly-home-info">
     <i class="iconfont icon-kiss" title="总积分"></i><span style="color: #FF7200;" th:text="${userAccount.score}"></span>
@@ -43,9 +42,12 @@
   </div>
 
 </div>
+<!--用户个人信息 end-->
 
+<!--用户发言管理 start-->
 <div class="layui-container">
   <div class="layui-row layui-col-space15">
+    <!--发表的帖子 start-->
     <div class="layui-col-md6 fly-home-jie">
       <div class="fly-panel">
         <h3 class="fly-panel-title" th:text="${user.getName()+' 发表了 '+paginationDto.totalCount+' 个帖子'}"></h3>
@@ -90,8 +92,10 @@
         </div>
       </div>
     </div>
+    <!--发表的帖子 end-->
 
 
+    <!--回复的帖子 start-->
     <div class="layui-col-md6 fly-home-da">
       <div class="fly-panel">
         <h3 class="fly-panel-title" ><th:block th:text="${user.getName()+' 回复了主题 '}"></th:block><span id="comment_count"></span> 次</h3>
@@ -100,9 +104,11 @@
         </ul>
       </div>
     </div>
+    <!--回复的帖子 end-->
 
   </div>
 </div>
+<!--用户发言管理 end-->
 <th:block th:insert="~{common/footer :: foot}"></th:block>
 <script>
 layui.cache.page = 'user';

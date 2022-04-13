@@ -93,7 +93,8 @@
     - user/{userId} : 跳转到用户首页
     
     - user/set/{action}
-      user/set/avatar : 更换头像
+      user/set/avatar : 更换头像请求 post
+      user/set/info : 更改个人资料请求 post
       
       
 - ForumNotificationController:

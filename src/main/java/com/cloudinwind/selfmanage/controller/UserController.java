@@ -42,6 +42,8 @@ public class UserController {
     private TokenUtils tokenUtils;
     @Autowired
     private CookieUtils cookieUtils;
+
+
     @UserLoginToken
     @ResponseBody//@ResponseBody返回json格式的数据
     @RequestMapping(value = "/api/user/repass", method = RequestMethod.POST)
@@ -52,6 +54,7 @@ public class UserController {
                return userService.repass(user.getId(),nowpass,pass);
     }
 
+    // 跳转到用户首页
     @GetMapping("/user/{userId}")
     public String getUserHome(@PathVariable(name="userId",required = false) String userId,
                               @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -79,11 +82,11 @@ public class UserController {
             model.addAttribute("message",CustomizeErrorCode.USER_IS_EMPTY.getMessage());
             return "error";
         }
-        //return "user/home";
     }
 
 
 
+    // 提交用户资料或头像更新请求
     @PostMapping("/user/set/{action}")
     @ResponseBody
     public Map<String,Object> set(HttpServletRequest request,
@@ -99,7 +102,7 @@ public class UserController {
             throw new CustomizeException(CustomizeErrorCode.NO_LOGIN);
         }
         Map<String,Object> map  = new HashMap<>();
-
+        // 更换头像请求
         if("avatar".equals(action)){
              //System.out.println(avatar);
             int i = userService.updateAvatarById(user.getId(),avatar);
@@ -113,6 +116,7 @@ public class UserController {
             }
         }
 
+        // 更改个人信息请求
         if("info".equals(action)){
             //System.out.println("json:"+json);
             UserInfo userInfo = JSON.parseObject(json, UserInfo.class);
