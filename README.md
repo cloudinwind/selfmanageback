@@ -209,6 +209,13 @@ group_id为21: 表示该用户是管理员
 
 存储用户喜欢的帖子, 说说, 以及评论(通过type来区分喜欢的种类)
 
+- 凡是和 ==收藏/点赞== 相关的操作都会触发对该表的操作
+
 
 ==帖子, 说说, 评论通过type来区别==
 enums包下的LikeTypeEnum和CommentTypeEnum
+
+## 其他
+
+MyBatisGenerator: https://www.jianshu.com/p/edb8428fa9df
+

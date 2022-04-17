@@ -57,7 +57,9 @@ public class PageConstant {
      * 默认排序方向
      */
     public static final String PAGE_ORDER_DEFAULT = "desc";
+    public static final int page = 1;
 
+    public static final int limit = 10;
 
 
 }

@@ -21,13 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author wadao
- * @version 2.0
- * @date 2020/5/1 17:27
- * @site niter.cn
- */
-
 @Controller
 public class ForumQuestionController {
     @Autowired
@@ -123,10 +116,6 @@ public class ForumQuestionController {
     @ResponseBody
     @RequestMapping(value = "/api/question/list", method = RequestMethod.POST)
     public ResultDTO<List<CommentDTO>> questionList(
-            /*@RequestParam(name = "commentator",required = false) Long commentator
-            ,@RequestParam(name = "type",required = false) Integer type
-            ,@RequestParam(name = "id",required = false) Long id
-            ,@RequestParam(name = "parentId",required = false) Long parentId*/
             @RequestBody QuestionQueryDTO questionQueryDTO
     ) {
         PaginationDTO paginationDTO = questionService.listByQuestionQueryDTO(questionQueryDTO);

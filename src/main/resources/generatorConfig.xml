@@ -44,6 +44,10 @@
             <columnOverride column="html" javaType="java.lang.String" jdbcType="VARCHAR" />
         </table>
 
+        <table tableName="time_task" domainObjectName="Task"></table>
+        <table tableName="time_label" domainObjectName="Label"></table>
+        <table tableName="time_user_label" domainObjectName="UserLabel"></table>
+        <table tableName="time_user_task" domainObjectName="UserTask"></table>
 
     </context>
 </generatorConfiguration>

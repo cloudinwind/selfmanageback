@@ -1,0 +1,153 @@
+<!--后台首页-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charSet="UTF-8">
+    <title>时间管理</title>
+    <script src="/js/jquery-1.10.2.js"></script>
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">时间管理</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                         class="layui-nav-img">
+                    <span th:text="${loginUser.name}"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="logout">注销</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">
+<!--                        <i th:class="layui-icon layui-icon-user"></i>-->
+                        <span th:text="任务管理"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <!--    <a th:href="${child.url}" th:text="${child.title}"></a>-->
+                            <a class="" th:href="@{/task/toTaskManage/}+${loginUser.id}">
+<!--                                <i th:class=""></i>-->
+                                <span th:text="任务展示管理"></span>
+                            </a>
+
+                        </dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <!--    <a th:href="${child.url}" th:text="${child.title}"></a>-->
+                            <a class="" th:href="@{/tester/toResultManage}">
+<!--                                <i th:class=""></i>-->
+                                <span th:text="测试者"></span>
+                            </a>
+
+                        </dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <!--    <a th:href="${child.url}" th:text="${child.title}"></a>-->
+                            <a class="" th:href="@{/toPlatform}">
+<!--                                <i th:class=""></i>-->
+                                <span th:text="分析"></span>
+                            </a>
+
+                        </dd>
+                    </dl>
+                </li>
+
+<!--                <li class="layui-nav-item layui-nav-itemed">-->
+<!--                    <a class="" href="javascript:;">-->
+<!--                        <i th:class="layui-icon layui-icon-app"></i>-->
+<!--                        <span th:text="标签管理"></span>-->
+<!--                    </a>-->
+<!--                    <dl class="layui-nav-child" th:each="child : ${menu.children}">-->
+<!--                        <dd>-->
+<!--                            &lt;!&ndash;    <a th:href="${child.url}" th:text="${child.title}"></a>&ndash;&gt;-->
+<!--                            <a class="" th:href="${child.url}">-->
+<!--                                <i th:class="${child.icon}"></i>-->
+<!--                                <span th:text="${child.title}"></span>-->
+<!--                            </a>-->
+
+<!--                        </dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+
+<!--                <li class="layui-nav-item layui-nav-itemed">-->
+<!--                    <a class="" href="javascript:;">-->
+<!--                        <i th:class="layui-icon layui-icon-log"></i>-->
+<!--                        <span th:text="任务分析"></span>-->
+<!--                    </a>-->
+<!--                    <dl class="layui-nav-child" th:each="child : ${menu.children}">-->
+<!--                        <dd>-->
+<!--                            &lt;!&ndash;    <a th:href="${child.url}" th:text="${child.title}"></a>&ndash;&gt;-->
+<!--                            <a class="" th:href="${child.url}">-->
+<!--                                <i th:class="${child.icon}"></i>-->
+<!--                                <span th:text="${child.title}"></span>-->
+<!--                            </a>-->
+
+<!--                        </dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+
+<!--                <li th:each="menu:${menus}" class="layui-nav-item layui-nav-itemed">-->
+<!--                    <a class="" href="javascript:;">-->
+<!--                        <i th:class="${menu.icon}"></i>-->
+<!--                        <span th:text="${menu.title}"></span>-->
+<!--                    </a>-->
+<!--                    <dl class="layui-nav-child" th:each="child : ${menu.children}">-->
+<!--                        <dd>-->
+<!--                            &lt;!&ndash;    <a th:href="${child.url}" th:text="${child.title}"></a>&ndash;&gt;-->
+<!--                            <a class="" th:href="${child.url}">-->
+<!--                                <i th:class="${child.icon}"></i>-->
+<!--                                <span th:text="${child.title}"></span>-->
+<!--                            </a>-->
+
+<!--                        </dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <iframe id="iframMain" src="task/toTaskManage/8" style="width: 100%;height: 100%"></iframe>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        本项目由贝贝小队共同开发
+    </div>
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+    $(function () {
+        //页面加载之后执行的代码
+        //点击a标签的时候，修改iframe的src属性
+        $("dd>a").click(function (e) {
+            //阻断超链接的跳转事件
+            e.preventDefault();
+            //取得超链接对象的href属性值赋给iframe的src属性
+            $("#iframMain").attr("src", $(this).attr("href"));
+        })
+    })
+</script>
+</body>
+</html>

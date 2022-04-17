@@ -1,0 +1,724 @@
+<!--问题管理页面-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+
+<script>
+    let userId = [[${timeUserId}]]
+    console.log("userId:", userId)
+
+</script>
+<!--头部导航工具栏-->
+<script type="text/html" id="barDemo">
+    <a  class="layui-btn" lay-event="save"><i class="layui-icon layui-icon-addition"></i>添加</a>
+    <a  class="layui-btn layui-btn-danger" lay-event="delete"><i class="layui-icon layui-icon-delete"></i>删除</a>
+</script>
+
+<!--侧边工具栏-->
+<script type="text/html" id="rowBarDemo">
+    <a  class="layui-btn layui-btn-normal layui-btn-xs" lay-event="update">修改</a>
+    <a  class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</script>
+
+<!--按条件查询-->
+<form class="layui-form" action="" lay-filter="conditionTaskForm" id="conditionTaskForm" style="margin-top: 10px">
+    <div class="layui-inline">
+        <label class="layui-form-label">任务名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="taskContent" placeholder="请输入任务名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">标签</label>
+        <div class="layui-input-inline">
+            <select id="labelSelect3" name="labelId" lay-filter="labelSelect3">
+                <option th:value="-1">请选择查询标签</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <label class="layui-form-label">起始时间</label>
+        <div class="layui-input-inline">
+            <input type="text" id="startDateCondition" name="startDateCondition" class="layui-input" placeholder="开始日期">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">终止时间</label>
+        <div class="layui-input-inline">
+            <input type="text" id="endDateCondition" name="endDateCondition" class="layui-input" placeholder="结束日期">
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <button class="layui-btn" lay-submit lay-filter="selectFormfilter">查询</button>
+            <button type="reset" class="layui-btn layui-btn-primary"  id="myButton" >重置</button>
+        </div>
+    </div>
+</form>
+
+<!--任务管理 start-->
+
+<!--添加任务-->
+<form class="layui-form" action="" lay-filter="saveTaskForm" id="saveTaskForm" style="display: none;margin-right: 40px;margin-top: 20px">
+
+    <input type="hidden" th:value="${timeUserId}" th:name="userId">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">任务</label>
+        <div class="layui-input-block">
+            <input type="text" name="taskContent" required  lay-verify="required" placeholder="请输入任务名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">优先级</label>
+        <div class="layui-input-block">
+            <select name="priority" lay-filter="aihao">
+                <option value="0" selected>重要紧急</option>
+                <option value="1">重要不紧急</option>
+                <option value="2">紧急不重要</option>
+                <option value="3">不重要不紧急</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签</label>
+        <div class="layui-input-block">
+            <select id="labelSelect" name="labelId" lay-filter="labelSelect">
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">时间范围</label>
+        <div class="layui-input-block">
+            <input type="text" name="timePeriod" class="layui-input" id="taskPeriod">
+        </div>
+    </div>
+
+    <!-- 子任务 -->
+    <div class="layui-form-item">
+        <label class="layui-form-label">子任务</label>
+        <div class="layui-input-block">
+            <input type="text" name="childTask" required  lay-verify="required" placeholder="两个子任务之间用逗号隔开" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">说明</label>
+        <div class="layui-input-block">
+            <textarea name="explan" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="saveTaskFilter">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<!--添加任务 end-->
+
+<!--修改任务 start-->
+<form class="layui-form" action="" lay-filter="updateTaskForm" id="updateTaskForm" style="display: none;margin-right: 40px;margin-top: 20px">
+
+    <input type="hidden" name="taskId">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">任务</label>
+        <div class="layui-input-block">
+            <input type="text" name="taskContent" required  lay-verify="required" placeholder="请输入任务名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">优先级</label>
+        <div class="layui-input-block">
+            <select name="priority" lay-filter="aihao">
+                <option value="0" selected>重要紧急</option>
+                <option value="1">重要不紧急</option>
+                <option value="2">紧急不重要</option>
+                <option value="3">不重要不紧急</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签</label>
+        <div class="layui-input-block">
+            <select id="labelSelect2" name="labelId" lay-filter="labelSelect2">
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">时间范围</label>
+        <div class="layui-input-block">
+            <input type="text" name="timePeriod" class="layui-input" id="taskPeriod2">
+        </div>
+    </div>
+
+    <!-- 子任务 -->
+    <div class="layui-form-item">
+        <label class="layui-form-label">子任务</label>
+        <div class="layui-input-block">
+            <input type="text" name="childTask" required  lay-verify="required" placeholder="两个子任务之间用逗号隔开" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="finished" value="0" lay-skin="switch" lay-text="已完成|未完成">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">说明</label>
+        <div class="layui-input-block">
+            <textarea name="explan" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="updateTaskFilter">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<!--修改任务 end-->
+
+<!--任务管理 end-->
+
+
+<!--页面展示-->
+<table id="demo" lay-filter="test"></table>
+</body>
+<script>
+
+    layui.use(['table','jquery','form','laydate'],function(){
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.jquery;
+        var laydate = layui.laydate;
+
+        var startTime, endTime, duration;
+        //时间范围选择
+        laydate.render({
+            elem: '#taskPeriod'
+            ,type: 'time'
+            ,range: true
+            ,position: 'fixed'
+
+            ,min: '05:00:00'
+            ,max: '23:55:55'
+            ,format: 'HH:mm'
+            ,ready: function(date) {
+                console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+            }
+            ,done: function(value, date, endDate){
+                startTime = date;
+                endTime = endDate;
+                console.log(value); //得到日期生成的值，如：2017-08-18
+                console.log('start:', date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                console.log('end:', endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                console.log(startTime.minutes, " -- ",endTime.minutes)
+
+                duration = calDuration(startTime, endTime);
+
+            }
+        });
+
+        // 修改表单
+        var startTime2, endTime2, duration2=0;
+        //时间范围选择
+        laydate.render({
+            elem: '#taskPeriod2'
+            ,type: 'time'
+            ,range: true
+            ,position: 'fixed'
+            ,min: '05:00:00'
+            ,max: '23:55:55'
+            ,format: 'HH:mm'
+            ,ready: function(date) {
+                console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+            }
+            ,done: function(value, date, endDate){
+                startTime2 = date;
+                endTime2 = endDate;
+                console.log(value); //得到日期生成的值，如：2017-08-18
+                console.log('start:', date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                console.log('end:', endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                console.log(startTime2.minutes, " -- ",endTime2.minutes)
+
+                duration2 = calDuration(startTime2, endTime2);
+
+            }
+        });
+
+        //第一个实例 发送请求，查找所有
+        var myTable=table.render({
+            elem: '#demo'   // 页面展示 table 的id
+            ,height: 600
+            ,url: '/task/selectByPage' //数据接口
+            ,page: true //开启分页
+            // ,limit:10
+            // ,limits:[5,10,15,20,25,30,50,100]
+            ,toolbar: '#barDemo'    // 头部导航id
+            ,cols: [
+                [ //表头
+                    {type: 'checkbox', fixed: 'left'}
+                    // ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                    ,{field: 'taskContent', title: '任务', width:120}
+                    ,{field: 'labelName', title: '标签', width:120}
+                    // ,{field: 'priority', title: '优先级', width:120}
+                    ,{field: 'timePeriod', title: '时间', width:120}
+                    // ,{field: 'optionD', title: '选项D', width:120}
+                    ,{field: 'priority', title: '优先级', width:120,
+                    // 自定义模板
+                    templet: function(d){
+                        //得到当前行数据，并拼接成自定义模板
+                        if(d.priority==0){
+                            //return '可用'
+                            return '重要紧急'
+                        }else if(d.priority == 1)
+                        {
+                            return '重要不紧急'
+                        }else if(d.priority == 2)
+                        {
+                            return '紧急不重要'
+                        }else {
+                            return '不重要不紧急'
+                        }
+
+                    }
+                }
+                    ,{field: 'childTask', title: '子任务', width: 120}
+                    ,{field: 'finished', title: '状态', width:80,
+
+                    // 自定义模板
+                    templet: function(d){
+                        //得到当前行数据，并拼接成自定义模板
+                        if(d.finished==0){
+                            //return '可用'
+                            return '<a class="layui-btn  layui-btn-xs">未完成</a>'
+                        }else
+                        {
+                            return '<a class="layui-btn layui-btn-disabled  layui-btn-xs">已完成</a>'
+                        }
+
+                    }
+                }
+                    // ,{field: 'createTime', title: '创建时间', width:80}
+                    // ,{field: 'creator', title: '创建人', width:80}
+                    // ,{field: 'updateTime', title: '修改时间', width:80}
+                    // ,{field: 'updater', title: '修改人', width:80}
+                    // 侧边工具栏, #rowBarDemo为对应id
+                    ,{fixed: 'right', width: 150, align:'center', toolbar: '#rowBarDemo'}
+
+                ]
+            ]
+        });
+
+
+
+        //监听头工具栏事件 'test' 为 table 的lay-filter
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id),
+                data = checkStatus.data; //获取选中的数据
+            switch(obj.event){  // obj.event 对应 lay-event
+                case 'save':
+                    console.log("save-------")
+                    // 添加任务
+                    addTask()
+                    break;
+                case 'delete':  // 批量删除
+                    console.log("delete---------")
+                    if(data.length === 0){
+                        layer.msg('请选择一行');
+                    } else {
+                        layer.confirm('真的删除选中的行么', function(index){
+                            //obj.del(); //删除对应行（tr）的DOM结构
+                            //删除数据库中的数据
+                            console.log(data)
+
+                            var idList=[];
+                            //遍历数组data，抽取所有的id
+                            for (let i = 0; i < data.length; i++) {
+                                idList[i]=(data[i].taskId);
+                            }
+                            $.ajax({
+                                url:"/task/deleteByIdList",
+                                type: "POST",
+                                dataType:"JSON",
+                                data:{idList:idList},
+                                success:function (ret) {
+                                    if(ret.code==0){
+                                        //刷新表格数据
+                                        myTable.reload({
+                                            page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
+                                        layer.msg(ret.msg,{icon: 6});
+                                    }else
+                                    {
+                                        layer.msg(ret.msg,{icon: 5});
+                                    }
+                                }
+                            })
+                            layer.close(index);
+                            //向服务端发送删除指令
+                        });
+                    }
+                    break;
+            };
+        });
+
+        // 添加任务
+        function addTask(){
+
+            console.log(userId)
+            $.ajax({
+                url:"/label/selectLabelByUserId",
+                method:"get",
+                data:{userId:userId},
+                async:false,
+                success(data){
+                    if (data.code === 0) {
+                        // 将标签添加到表单中
+                        let labelData = data.data;
+                        for (let i=0; i<labelData.length; i++)
+                        {
+                            let labelId = labelData[i].labelId;
+                            let labelName = labelData[i].labelName;
+                            console.log(labelId, labelName);
+
+                            $('#labelSelect').append(
+                                "<option value="+labelId+">" + labelName + "</option>"
+                            );
+                        }
+                    }else{
+                        console.log("未成功")
+                    }
+                }
+            });
+
+            form.render('select', 'saveTaskForm');
+            layer.open({
+                title: '添加任务',
+                type: 1,
+                area: ['500px', '450px'],
+                // 调用弹窗 saveQuestionForm 为 对应form弹窗的 id
+                content: $("#saveTaskForm")//这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+            });
+        }
+        // 计算时间
+        function calDuration(startTime, endTime) {
+            var startTimeHour, startTimeMinute, endTimeHour, endTimeMinute;
+            startTimeHour = startTime.hours;
+            startTimeMinute = startTime.minutes;
+            endTimeHour = endTime.hours;
+            endTimeMinute = endTime.minutes;
+
+            if (endTimeMinute < startTimeMinute)
+            {
+                endTimeMinute += 60;
+                endTimeHour -= 1;
+            }
+
+            var duration = (endTimeHour - startTimeHour)*60 + (endTimeMinute - startTimeMinute);
+            return duration;
+        }
+        // 提交 添加的任务
+        form.on('submit(saveTaskFilter)', function(data){
+            console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            data.field.duration = duration;
+            console.log("duration:")
+            console.log(data.field);
+
+            console.log(JSON.stringify(data.field));
+            //提交表单数据
+            $.ajax({
+                url:"/task/saveTask",
+                type: "POST",
+                dataType:"JSON",
+                //data:data.field,
+                contentType:"application/json;charset=UTF-8",
+                data:JSON.stringify(data.field),
+                success:function (ret) {
+                    if(ret.code==0){
+                        //关闭对话框
+                        layer.closeAll();
+                        //刷新表格数据
+                        myTable.reload({
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
+                        layer.msg(ret.data.taskContent+ret.msg,{icon: 6});
+                    }else
+                    {
+                        layer.msg(ret.msg,{icon: 5});
+                    }
+
+                }
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+
+
+
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'delete'){
+                console.log("单个delete")
+                layer.confirm('真的删除行么', function(index){
+                    //obj.del(); //删除对应行（tr）的DOM结构
+                    //删除数据库中的数据
+                    console.log(data)
+                    var idList=[];
+                    //遍历数组data，抽取所有的id
+                    idList.push(data.taskId);
+                    $.ajax({
+                        url:"/task/deleteByIdList",
+                        type: "POST",
+                        dataType:"JSON",
+                        data:{idList:idList},
+                        success:function (ret) {
+                            if(ret.code==0){
+                                //刷新表格数据
+                                myTable.reload({
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                });
+                                layer.msg(ret.msg,{icon: 6});
+                            }else
+                            {
+                                layer.msg(ret.msg,{icon: 5});
+                            }
+                        }
+                    })
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            }else if(layEvent === 'update'){
+                console.log("=====================")
+                console.log(data)
+                //表单弹出之前进行数据的填充，也叫做表单赋值
+                //表单赋值
+                // 对应 更新弹窗的 lay-filter
+                form.val('updateTaskForm', {
+                    "taskContent": data.taskContent, // "name": "value"
+                    "labelId": data.labelId, // "name": "value"
+                    "timePeriod":data.timePeriod, // "name": "value"
+                    "priority":data.priority, // "name": "value"
+                    "childTask": data.childTask, // "name": "value"
+                    "explan": data.explan,
+                    "duration": data.duration,
+                    "finished":data.finished==0?false:true,
+                    // "updater":"",
+                    "taskId":data.taskId
+                });
+                updateTask()
+            }
+        });
+
+        // 修改任务
+        function updateTask(){
+            console.log(userId)
+            $.ajax({
+                url:"/label/selectLabelByUserId",
+                method:"get",
+                data:{userId:userId},
+                async:false,
+                success(data){
+                    if (data.code === 0) {
+                        // 将标签添加到表单中
+                        let labelData = data.data;
+                        for (let i=0; i<labelData.length; i++)
+                        {
+                            let labelId = labelData[i].labelId;
+                            let labelName = labelData[i].labelName;
+                            console.log(labelId, labelName);
+
+                            $('#labelSelect2').append(
+                                "<option value="+labelId+">" + labelName + "</option>"
+                            );
+                        }
+                    }else{
+                        console.log("未成功")
+                    }
+                }
+            });
+
+            form.render('select', 'updateTaskForm');
+            layer.open({
+                title: '修改任务',
+                type: 1,
+                area: ['500px', '450px'],
+                // 调用弹窗 saveQuestionForm 为 对应form弹窗的 id
+                content: $("#updateTaskForm")//这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+            });
+        }
+        // 修改任务
+        form.on('submit(updateTaskFilter)', function(data){
+            console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            if (duration2 != 0)
+                data.field.duration = duration2;
+            console.log("duration:")
+            console.log(data.field);
+            console.log(JSON.stringify(data.field));
+            //提交表单数据
+            $.ajax({
+                url:"/task/updateTask",
+                type: "PUT",
+                dataType:"JSON",
+                contentType:"application/json;charset=UTF-8",
+                data:JSON.stringify(data.field),
+                success:function (ret) {
+                    if(ret.code==0){
+                        //关闭对话框
+                        layer.closeAll();
+                        //刷新表格数据
+                        myTable.reload({
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
+                        layer.msg(ret.msg,{icon: 6});
+                    }else
+                    {
+                        layer.msg(ret.msg,{icon: 5});
+                    }
+
+                }
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        // 初始化条件查询时间
+        laydate.render({
+            elem: '#startDateCondition'
+            ,type: 'datetime'
+            ,format: 'yyyy-MM-dd HH:mm:ss'
+
+            ,ready: function(date) {
+                console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+            }
+            ,done: function(value, date){
+                console.log("condition", value)
+                console.log("condition", date)
+            }
+        });
+        laydate.render({
+            elem: '#endDateCondition'
+            ,type: 'datetime'
+            ,format: 'yyyy-MM-dd HH:mm:ss'
+
+            ,ready: function(date) {
+                console.log(date); //得到初始的日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+            }
+            ,done: function(value, date){
+                console.log("condition", value)
+                console.log("condition", date)
+            }
+        });
+        // 初始化条件查询标签
+        $.ajax({
+            url:"/label/selectLabelByUserId",
+            method:"get",
+            data:{userId:userId},
+            async:false,
+            success(data){
+                if (data.code === 0) {
+                    // 将标签添加到表单中
+                    let labelData = data.data;
+                    for (let i=0; i<labelData.length; i++)
+                    {
+                        let labelId = labelData[i].labelId;
+                        let labelName = labelData[i].labelName;
+                        console.log(labelId, labelName);
+
+                        $('#labelSelect3').append(
+                            "<option value="+labelId+">" + labelName + "</option>"
+                        );
+                    }
+                }else{
+                    console.log("未成功")
+                }
+            }
+        });
+        form.render('select', 'conditionTaskForm');
+
+        // 按条件查询
+        form.on('submit(selectFormfilter)', function(data){
+            console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            //提交表单数据
+            $.ajax({
+                url:"/task/selectByPage",
+                type: "POST",
+                dataType:"JSON",
+                data:data.field,
+                success:function (ret) {
+                    if(ret.code==0){
+                        //刷新表格数据
+                        myTable.reload({
+                            where: { //设定异步数据接口的额外参数，任意设
+                                taskContent: data.field.taskContent
+                                ,labelId: data.field.labelId
+                                ,startDateCondition: data.field.startDateCondition
+                                ,endDateCondition: data.field.endDateCondition
+                            }
+                            ,
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
+                    }else
+                    {
+                        layer.msg(ret.msg,{icon: 5});
+                    }
+                }
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        ///重置条件查询表单，刷新table数据
+        $("#myButton").click(function () {
+            myTable.reload({
+                where: { //设定异步数据接口的额外参数，任意设
+                    taskContent: ""
+                    ,labelId: ""
+                    //…
+                }
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        });
+
+    });
+
+
+
+</script>
+</html>

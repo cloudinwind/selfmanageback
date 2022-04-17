@@ -19,13 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-/**
- * @author wadao
- * @version 2.0
- * @date 2020/5/1 16:17
- * @site niter.cn
- */
-
 @Controller
 public class ForumIndexController {
 
@@ -76,15 +69,15 @@ public class ForumIndexController {
         model.addAttribute("column", column2);
         model.addAttribute("topQuestions", topQuestions);
         model.addAttribute("navtype", "communitynav");
-        return "index";
+        return "forumIndex";
     }
 
-    @GetMapping(value = {"/"})
-    public String index(HttpServletRequest request,
-                        Model model) {
-     if(indexId==2) return "redirect:/home";
-      else  return "redirect:/forum";
-    }
+//    @GetMapping(value = {"/"})
+//    public String index(HttpServletRequest request,
+//                        Model model) {
+//     if(indexId==2) return "redirect:/home";
+//      else  return "redirect:/forum";
+//    }
 
 
 
