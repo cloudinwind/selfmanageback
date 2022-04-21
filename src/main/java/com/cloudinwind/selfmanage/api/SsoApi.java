@@ -25,12 +25,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/5/31 21:06
- * @site niter.cn
- */
+
 @Controller
 @RequestMapping("/api/sso")
 @ApiIgnore

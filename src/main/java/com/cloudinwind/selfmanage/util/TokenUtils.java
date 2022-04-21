@@ -16,12 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/4/22 22:03
- * @site niter.cn
- */
 
 @Component("TokenUtils")
 public class TokenUtils {

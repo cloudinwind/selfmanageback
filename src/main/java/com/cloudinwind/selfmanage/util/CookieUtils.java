@@ -5,12 +5,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/5/9 22:04
- * @site niter.cn
- */
 
 @Component("CookieUtils")
 public class CookieUtils {

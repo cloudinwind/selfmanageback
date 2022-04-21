@@ -2,12 +2,6 @@ package com.cloudinwind.selfmanage.dto;
 
 import lombok.Data;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/9/24 21:46
- * @site niter.cn
- */
 
 @Data
 public class TalkQueryDTO {

@@ -1,11 +1,6 @@
 package com.cloudinwind.selfmanage.constant;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/7/5 15:00
- * @site niter.cn
- */
+
 public class PageConstant {
     /**
      * 页码

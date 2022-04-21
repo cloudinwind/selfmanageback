@@ -18,12 +18,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/9/26 21:31
- * @site niter.cn
- */
+
 @Controller
 @RequestMapping("/api/file")
 //@Api(tags={"文件接口"})

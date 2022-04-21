@@ -16,12 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author wadao
- * @version 2.0
- * @date 2020/5/1 17:12
- * @site niter.cn
- */
 
 @Controller
 public class ForumNotificationController {

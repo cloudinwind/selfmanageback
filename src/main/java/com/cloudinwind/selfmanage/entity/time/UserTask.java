@@ -5,9 +5,6 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 /**
  * (UserTask)表实体类
- *
- * @author makejava
- * @since 2022-03-30 15:28:59
  */
 @TableName("time_user_task")
 public class UserTask extends Model<UserTask> {

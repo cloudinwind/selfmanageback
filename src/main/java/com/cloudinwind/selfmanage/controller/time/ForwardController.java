@@ -16,13 +16,24 @@ import java.util.List;
 public class ForwardController {
 
     /**
-     * 到问题管理界面
+     * 到任务管理界面
      * @return
      */
     @RequestMapping("task/toTaskManage/{userId}")
-    public ModelAndView toQuestionManage(@PathVariable("userId") Integer userId, ModelAndView modelAndView){
+    public ModelAndView toTaskManage(@PathVariable("userId") Integer userId, ModelAndView modelAndView){
         modelAndView.addObject("timeUserId", userId);
         modelAndView.setViewName("time/taskManage");
+        return modelAndView;
+    }
+
+    /**
+     * 标签管理页面
+     */
+    @RequestMapping("task/toLabelManage/{userId}")
+    public ModelAndView toLabelManage(@PathVariable("userId") Integer userId, ModelAndView modelAndView){
+        System.out.println("toLabelManage:" + userId);
+        modelAndView.addObject("timeUserId", userId);
+        modelAndView.setViewName("time/labelManage");
         return modelAndView;
     }
 

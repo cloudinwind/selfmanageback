@@ -30,12 +30,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * @author wadao
- * @version 2.0
- * @date 2020/5/1 15:17
- * @site niter.cn
- */
 
 // 处理第三方平台授权后的回调
 

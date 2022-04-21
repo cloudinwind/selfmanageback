@@ -15,12 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/7/6 20:54
- * @site niter.cn
- */
+
 @Controller
 @RequestMapping("/api/user")
 @Api(tags={"用户接口"})

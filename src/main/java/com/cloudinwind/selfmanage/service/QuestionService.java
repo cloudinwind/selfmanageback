@@ -27,13 +27,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-/**
- * @author wadao
- * @version 2.0
- * @date 2020/5/1 15:17
- * @site niter.cn
- */
-
 @Service
 public class QuestionService {
     @Autowired

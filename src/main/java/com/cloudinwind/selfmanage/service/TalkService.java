@@ -20,12 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/9/23 18:54
- * @site niter.cn
- */
+
 
 @Service
 public class TalkService {

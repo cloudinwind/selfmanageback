@@ -21,13 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @author wadao
- * @version 2.0
- * @date 2020/5/1 15:17
- * @site niter.cn
- */
-
 @Controller
 public class ForumPublishController {
     @Autowired

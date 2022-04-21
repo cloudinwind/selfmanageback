@@ -4,10 +4,10 @@
 <head>
     <meta charSet="UTF-8">
     <title>时间管理</title>
-    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/time/js/jquery-1.10.2.js"></script>
 
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <script src="/layui/layui.js"></script>
+    <link rel="stylesheet" href="/time/layui/css/layui.css">
+    <script src="/time/layui/layui.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -16,7 +16,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                    <img th:src="${loginUser.avatarUrl}"
                          class="layui-nav-img">
                     <span th:text="${loginUser.name}"></span>
                 </a>
@@ -50,9 +50,19 @@
                     <dl class="layui-nav-child">
                         <dd>
                             <!--    <a th:href="${child.url}" th:text="${child.title}"></a>-->
+                            <a class="" th:href="@{/task/toLabelManage/}+${loginUser.id}">
+                                <!--                                <i th:class=""></i>-->
+                                <span th:text="标签管理"></span>
+                            </a>
+
+                        </dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <!--    <a th:href="${child.url}" th:text="${child.title}"></a>-->
                             <a class="" th:href="@{/tester/toResultManage}">
 <!--                                <i th:class=""></i>-->
-                                <span th:text="测试者"></span>
+                                <span th:text="任务复盘"></span>
                             </a>
 
                         </dd>
@@ -62,7 +72,7 @@
                             <!--    <a th:href="${child.url}" th:text="${child.title}"></a>-->
                             <a class="" th:href="@{/toPlatform}">
 <!--                                <i th:class=""></i>-->
-                                <span th:text="分析"></span>
+                                <span th:text="任务分析"></span>
                             </a>
 
                         </dd>

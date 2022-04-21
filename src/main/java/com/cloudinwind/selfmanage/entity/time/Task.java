@@ -10,9 +10,6 @@ import java.util.Date;
 
 /**
  * (Task)表实体类
- *
- * @author makejava
- * @since 2022-03-30 15:22:51
  */
 @Data
 @TableName("time_task")

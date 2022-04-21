@@ -26,12 +26,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/9/23 18:31
- * @site niter.cn
- */
+
 @Controller
 @RequestMapping("/api/talk")
 @Api(tags={"说说接口"})

@@ -15,12 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/7/13 23:07
- * @site niter.cn
- */
+
 @Controller
 @RequestMapping("/api/like")
 @Api(tags={"点赞/收藏接口"})

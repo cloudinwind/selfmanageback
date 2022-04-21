@@ -14,8 +14,9 @@
     <select id="selectByUserId" resultType="com.cloudinwind.selfmanage.entity.time.Label">
         select sl.* from time_label sl,
             (select label_id from time_user_label where user_id = #{userId}) ul
-        where sl.label_id = ul.label_id;
+        where sl.label_id = ul.label_id and sl.flag=0;
     </select>
+
 
 </mapper>
 

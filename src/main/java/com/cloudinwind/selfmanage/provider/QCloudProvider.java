@@ -51,12 +51,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author wadao
- * @version 2.0
- * @date 2020/5/1 15:17
- * @site niter.cn
- */
+
 @Service
 @Slf4j
 public class QCloudProvider {

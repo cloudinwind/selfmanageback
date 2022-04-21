@@ -30,12 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/11/13 23:05
- * @site niter.cn
- */
 @Controller
 public class ForumTalkController {
 

@@ -2,12 +2,7 @@ package com.cloudinwind.selfmanage.dto;
 
 import lombok.Data;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/4/18 20:17
- * @site niter.cn
- */
+
 
 @Data
 public class CommentQueryDTO {

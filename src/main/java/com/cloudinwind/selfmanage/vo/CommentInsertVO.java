@@ -7,12 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/7/4 16:55
- * @site niter.cn
- */
 
 @Data
 @ApiModel(description="评论创建视图对象")

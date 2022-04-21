@@ -7,12 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/7/13 23:14
- * @site niter.cn
- */
 @Data
 @ApiModel(description="点赞/收藏创建视图对象")
 public class ThumbVO {

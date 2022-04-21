@@ -25,12 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/6/5 17:21
- * @site niter.cn
- */
 
 @Controller
 @RequestMapping("/api/comment")

@@ -1,11 +1,5 @@
 package com.cloudinwind.selfmanage.config;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/6/5 23:21
- * @site niter.cn
- */
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

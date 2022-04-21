@@ -2,13 +2,6 @@ package com.cloudinwind.selfmanage.dto;
 
 import lombok.Data;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/9/23 18:43
- * @site niter.cn
- */
-
 @Data
 public class TalkDTO {
     private Long id;

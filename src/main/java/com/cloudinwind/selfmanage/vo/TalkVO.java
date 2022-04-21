@@ -4,13 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * @author wadao
- * @version 1.0
- * @date 2020/9/24 21:33
- * @site niter.cn
- */
-
 @Data
 @ApiModel(description="说说视图对象")
 public class TalkVO {

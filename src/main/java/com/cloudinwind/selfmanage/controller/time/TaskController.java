@@ -20,9 +20,6 @@ import java.util.List;
 
 /**
  * (Task)表控制层
- *
- * @author makejava
- * @since 2022-03-30 15:22:51
  */
 @RestController
 @RequestMapping("task")
