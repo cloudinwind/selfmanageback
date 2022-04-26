@@ -68,7 +68,7 @@ public class BlogIndexController {
         UserDTO loginUser = (UserDTO) request.getAttribute("loginUser");
         Long userId = loginUser.getId();
 
-        PageHelper.startPage(pagenum, 5);
+        PageHelper.startPage(pagenum, 20);
         List<Blog> searchBlog = blogService.getUserSearchBlog(userId, query);
         PageInfo pageInfo = new PageInfo(searchBlog);
         model.addAttribute("pageInfo", pageInfo);
