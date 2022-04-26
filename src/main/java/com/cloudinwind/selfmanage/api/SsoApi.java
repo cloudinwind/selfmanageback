@@ -149,6 +149,7 @@ public class SsoApi {
         return ResultDTO.errorOf(CustomizeErrorCode.SEND_PHONE_FAILED);
     }
 
+    // 手机号验证码
     @ResponseBody//@ResponseBody返回json格式的数据
     @RequestMapping(value = "/phone/ValidCode", method = RequestMethod.POST)
     public Object validCode(@RequestParam("msg_id") String msg_id,
