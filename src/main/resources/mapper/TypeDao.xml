@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloudinwind.selfmanage.mapper.blog.TypeDao">
+
+
+    <!--两个id可能会相冲，取别名即可-->
+    <resultMap id="type" type="com.cloudinwind.selfmanage.entity.blog.Type">
+        <id property="id" column="tid"/>
+        <result property="name" column="name"/>
+        <collection property="blogs" ofType="com.cloudinwind.selfmanage.entity.blog.Blog">
+            <id property="id" column="bid"/>
+            <result property="title" column="title"/>
+            <result property="typeId" column="type_id"/>
+        </collection>
+    </resultMap>
+
+    <!--获取该用户下的分类(包含该分类下的博客)-->
+    <select id="getUserBlogType" resultMap="type">
+        select t.id tid, t.name, b.id bid, b.title, b.type_id
+        from tb_type t, tb_blog b
+        where t.id = b.type_id and b.user_id=#{userId}
+    </select>
+
+
+    <!--获取该用户下的所有分类(不包含该分类下的博客)-->
+    <select id="getUserAllType" resultType="com.cloudinwind.selfmanage.entity.blog.Type">
+        select type.* from tb_type type, tb_user_type utype
+        where utype.user_id=#{userId} and type.id=utype.type_id
+    </select>
+
+    <select id="getTypeById" resultType="com.cloudinwind.selfmanage.entity.blog.Type">
+        select id,name from tb_type where id = #{id}
+    </select>
+
+
+    <!--根据类型名称获取该用户下对应的类型-->
+    <select id="getUserTypeByName" resultType="com.cloudinwind.selfmanage.entity.blog.Type">
+        select type.* from tb_type type, tb_user_type utype
+        where type.id = utype.type_id and type.name = #{name} and utype.user_id=#{userId}
+    </select>
+
+    <insert id="saveType" parameterType="com.cloudinwind.selfmanage.entity.blog.Type">
+        insert into tb_type values (#{id},#{name});
+    </insert>
+
+    <update id="updateType" parameterType="com.cloudinwind.selfmanage.entity.blog.Type">
+        update tb_type set name = #{name} where id = #{id};
+    </update>
+
+    <delete id="deleteType" >
+        delete from tb_type where id = #{id}
+    </delete>
+
+
+    <!--查询有无该分类(该分类不一定属于该用户)-->
+    <select id="getTypeByName" resultType="com.cloudinwind.selfmanage.entity.blog.Type">
+        select * from tb_type where name = #{name}
+    </select>
+
+</mapper>
+
