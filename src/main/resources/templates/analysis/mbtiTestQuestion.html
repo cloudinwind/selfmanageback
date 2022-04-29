@@ -1,0 +1,66 @@
+<!--问题页面 进行问题测试-->
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <title>MBTI性格测试</title>
+
+
+  <link rel="stylesheet" type="text/css" href="/time/css/style.css">
+
+</head>
+
+<body>
+<input type="hidden" th:value="${loginUser.id}" id="userId">
+<div class="wrap">
+  <div class="topic_wrap">
+
+    <div class="fade_wrap">
+
+      <div class="wrap_top">
+
+        <div class="topic_no">
+
+          <span class="curr_no" id="curr_no">1</span>/<span class="count">93</span>
+
+        </div>
+
+      </div>
+
+      <div class="wrap_top1">
+
+        <div class="topic_title" id="topic_title"></div>
+
+      </div>
+
+      <div class="wrap_center">
+
+        <table class="topic_option" id="topic_option">
+
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  </div>
+
+<script type="text/javascript" src="/time/js/jquery.js"></script>
+
+<script type="text/javascript" src="/time/js/mbtiquestion.js"></script>
+
+<script type="text/javascript">
+
+  careerism.init();
+
+</script>
+</body>
+</html>

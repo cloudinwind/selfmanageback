@@ -1,0 +1,318 @@
+<!-- 企业家 -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="analysis/mbti/_fragments :: head(~{::title})">
+    <title>
+        "企业家" 人格 (ESTP)
+
+        | 16Personalities
+    </title>
+</head>
+
+
+<body role="document" class="scrolling--up">
+
+
+<!--ajax请求-->
+<script src="/time/js/jquery-2.1.1.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdn.bootcss.com/html2canvas/0.5.0-alpha2/html2canvas.min.js"></script>
+
+<style type="text/css">
+    #fade {
+        display:none;
+        position:absolute;
+        top:0%;
+        left:0%;
+        width:100%;
+        height:100%;
+        background-color:black;
+        z-index:1001;
+        -moz-opacity:0.8;
+        opacity:.80;
+        filter:alpha(opacity=80);
+    }
+    #light{
+        display:none;
+        position:absolute;
+        top:35%;
+        left:35%;
+        width:30%;
+        height:30%;
+        padding:16px;
+        border:3px solid orange;
+        background-color:white;
+        z-index:1002;
+        overflow:auto;
+    }
+</style>
+
+
+
+<div id="light"><h1 id="word">正在发送</h1></div>
+<div id="fade"></div>
+
+<div id="main-app" class="main-wrapper int ch">
+    <div class="navbar sticky" th:replace="analysis/mbti/_fragments :: navbar"></div>
+    <div aria-labelledby="mobile-menu-label" class="sp-nav__mobile"
+         th:replace="analysis/mbti/_fragments :: navmo"></div>
+
+    <main id="" class="q-td explorer entrepreneur" th:replace="analysis/mbti/_mainfragments :: ${mbtiResultVo.result}"></main>
+
+    <div class="social-popup"><a
+            href="https://twitter.com/intent/tweet?text=“”&amp;url=https://www.16personalities.com/ch/estp-%E4%BA%BA%E6%A0%BC&amp;via=16Personalities&amp;hashtags=16Personalities"
+            target="_blank" class="twitter"><span class="fab fa-twitter"></span></a> <a
+            href="mailto:?body=“”%0D%0A%0D%0Ahttps://www.16personalities.com/ch/estp-%E4%BA%BA%E6%A0%BC"
+            class="email"><span class="fal fa-envelope"></span></a></div>
+    <div class="modal__container">
+        <!---->
+        <!---->
+        <!---->
+        <div data-chunk="guest-chunk" personality-nice="Logistician">
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+        </div>
+        <!---->
+        <!---->
+        <div id="portal--modal">
+            <div data-v-447b592a="" data-v-247ff9c8="" class="modal__grandparent">
+                <!---->
+                <!---->
+            </div>
+            <div data-v-447b592a="" class="modal__grandparent">
+                <!---->
+                <!---->
+            </div>
+            <div data-v-447b592a="" class="modal__grandparent">
+                <!---->
+                <!---->
+            </div>
+            <div data-v-447b592a="" class="modal__grandparent">
+                <!---->
+                <!---->
+            </div>
+            <div data-v-447b592a="" class="modal__grandparent">
+                <!---->
+                <!---->
+            </div>
+            <div data-v-447b592a="" data-v-7628d350="" class="modal__grandparent">
+                <!---->
+                <!---->
+            </div>
+            <div data-v-447b592a="" data-v-34d7303f="" class="modal__grandparent">
+                <!---->
+                <!---->
+            </div>
+            <div data-v-447b592a="" data-v-65c0746c="" class="modal__grandparent">
+                <!---->
+                <!---->
+            </div>
+        </div>
+        <div id="portal--modalbg">
+            <div data-v-447b592a="" class="modal__bg is--hidden" style="display: none;"></div>
+            <div data-v-447b592a="" class="modal__bg is--hidden" style="display: none;"></div>
+            <div data-v-447b592a="" class="modal__bg is--hidden" style="display: none;"></div>
+            <div data-v-447b592a="" class="modal__bg is--hidden" style="display: none;"></div>
+            <div data-v-447b592a="" class="modal__bg is--hidden" style="display: none;"></div>
+            <div data-v-447b592a="" class="modal__bg is--hidden" style="display: none;"></div>
+            <div data-v-447b592a="" class="modal__bg is--hidden" style="display: none;"></div>
+            <div data-v-447b592a="" class="modal__bg is--hidden" style="display: none;"></div>
+        </div>
+    </div>
+    <div class="scrollbar-measure"></div>
+    <div class="push"></div>
+</div>
+
+<footer id="footer" class="footer--original international" th:replace="analysis/mbti/_fragments :: footer"></footer>
+
+
+    <script src="https://static.neris-assets.com/js/manifest--1f2b7c.js"></script>
+    <script src="https://static.neris-assets.com/js/vendor--35436e.js"></script>
+
+    <script src="https://static.neris-assets.com/js/app--053735.js"></script>
+
+    <script async="" defer="" src="https://static.neris-assets.com/js/vendor-polyfills--bf70b4.js"></script>
+
+
+    <script>
+
+
+        ga('send', 'pageview', {
+            'dimension11': 'ch'
+        });
+
+
+        gtag('set', 'user_properties', {
+            locale: 'ch',
+            authStatus: 'has-results'
+        });
+
+    </script>
+
+<script>
+
+    // 发送测试报告到邮箱
+    function saveAsImage() {
+
+        let light = document.getElementById('light');
+        let fade=document.getElementById('fade');
+        let word=document.getElementById('word');
+
+
+        var element = $("#main-app"); // 这个dom元素是要导出pdf的div容器
+        var w = element.width(); // 获得该容器的宽
+        var h = element.height(); // 获得该容器的高
+        var offsetTop = element.offset().top; // 获得该容器到文档顶部的距离
+        var offsetLeft = element.offset().left; // 获得该容器到文档最左的距离
+        var canvas = document.createElement("canvas");
+        var abs = 0;
+        var win_i = $(window).width(); // 获得当前可视窗口的宽度（不包含滚动条）
+        var win_o = window.innerWidth; // 获得当前窗口的宽度（包含滚动条）
+        if(win_o>win_i){
+            abs = (win_o - win_i)/2; // 获得滚动条长度的一半
+        }
+        canvas.width = w * 2; // 将画布宽&&高放大两倍
+        canvas.height = h * 2;
+        var context = canvas.getContext("2d");
+        context.scale(2, 2);
+        context.translate(-offsetLeft-abs,-offsetTop);
+        // 这里默认横向没有滚动条的情况，因为offset.left(),有无滚动条的时候存在差值，因此
+        // translate的时候，要把这个差值去掉
+        html2canvas(element).then(function(canvas) {
+            var contentWidth = canvas.width;
+            var contentHeight = canvas.height;
+            //一页pdf显示html页面生成的canvas高度;
+            var pageHeight = contentWidth / 592.28 * 841.89;
+            //未生成pdf的html页面高度
+            var leftHeight = contentHeight;
+            //页面偏移
+            var position = 0;
+            //a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高
+            var imgWidth = 595.28;
+            var imgHeight = 592.28/contentWidth * contentHeight;
+
+            var pageData = canvas.toDataURL('image/jpeg', 1.0);
+
+            var pdf = new jsPDF('', 'pt', 'a4');
+
+            //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+            //当内容未超过pdf一页显示的范围，无需分页
+            if (leftHeight < pageHeight) {
+                pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
+            } else { // 分页
+                while(leftHeight > 0) {
+                    pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+                    leftHeight -= pageHeight;
+                    position -= 841.89;
+                    //避免添加空白页
+                    if(leftHeight > 0) {
+                        pdf.addPage();
+                    }
+                }
+            }
+            let data = pdf.output("datauristring");
+
+            word.innerHTML = "正在发送中......";
+            light.style.display='block';
+            fade.style.display='block';
+
+            $.ajax({
+                url:"/analysis/mbtiResult/sendToMail",
+                type:"POST",
+                data : JSON.stringify({result:data,toWho:who}),
+                contentType:"application/json",
+                success:function (data) {
+
+                    console.log("--------", data)
+                    if (data.code==0){
+                        word.innerHTML = "成功！";
+                        setTimeout("window.location.reload()",500);
+                        light.style.display='none';
+                        fade.style.display='none';
+                    }else{
+                        alert("请先绑定邮箱")
+                    }
+
+                }
+            })
+        })
+    }
+
+    function test2() {
+        console.log("已经点击")
+    }
+
+    // 直接下载
+    function loadAsPdf() {
+
+        var element = $("#main-app"); // 这个dom元素是要导出pdf的div容器
+        var w = element.width(); // 获得该容器的宽
+        var h = element.height(); // 获得该容器的高
+        var offsetTop = element.offset().top; // 获得该容器到文档顶部的距离
+        var offsetLeft = element.offset().left; // 获得该容器到文档最左的距离
+        var canvas = document.createElement("canvas");
+        var abs = 0;
+        var win_i = $(window).width(); // 获得当前可视窗口的宽度（不包含滚动条）
+        var win_o = window.innerWidth; // 获得当前窗口的宽度（包含滚动条）
+        if(win_o>win_i){
+            abs = (win_o - win_i)/2; // 获得滚动条长度的一半
+        }
+        canvas.width = w * 2; // 将画布宽&&高放大两倍
+        canvas.height = h * 2;
+        var context = canvas.getContext("2d");
+        context.scale(2, 2);
+        context.translate(-offsetLeft-abs,-offsetTop);
+        // 这里默认横向没有滚动条的情况，因为offset.left(),有无滚动条的时候存在差值，因此
+        // translate的时候，要把这个差值去掉
+        html2canvas(element).then(function(canvas) {
+            var contentWidth = canvas.width;
+            var contentHeight = canvas.height;
+            //一页pdf显示html页面生成的canvas高度;
+            var pageHeight = contentWidth / 592.28 * 841.89;
+            //未生成pdf的html页面高度
+            var leftHeight = contentHeight;
+            //页面偏移
+            var position = 0;
+            //a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高
+            var imgWidth = 595.28;
+            var imgHeight = 592.28/contentWidth * contentHeight;
+
+            var pageData = canvas.toDataURL('image/jpeg', 1.0);
+
+            var pdf = new jsPDF('', 'pt', 'a4');
+
+            //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+            //当内容未超过pdf一页显示的范围，无需分页
+            if (leftHeight < pageHeight) {
+                pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
+            } else { // 分页
+                while(leftHeight > 0) {
+                    pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+                    leftHeight -= pageHeight;
+                    position -= 841.89;
+                    //避免添加空白页
+                    if(leftHeight > 0) {
+                        pdf.addPage();
+                    }
+                }
+            }
+            let data = pdf.save("测试报告.pdf");
+        })
+
+
+
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

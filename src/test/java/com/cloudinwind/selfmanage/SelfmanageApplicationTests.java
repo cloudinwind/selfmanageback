@@ -1,12 +1,17 @@
 package com.cloudinwind.selfmanage;
 
+import com.cloudinwind.selfmanage.entity.User;
 import com.cloudinwind.selfmanage.entity.forum.Ad;
 import com.cloudinwind.selfmanage.mapper.AdMapper;
 
-import org.junit.Test;
+
+import com.cloudinwind.selfmanage.service.analysis.UserMbtiresultService;
+import com.cloudinwind.selfmanage.vo.analysis.MbtiResultVo;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @SpringBootTest
 class SelfmanageApplicationTests {
@@ -17,6 +22,9 @@ class SelfmanageApplicationTests {
 
     @Resource
     AdMapper adMapper;
+
+    @Resource
+    UserMbtiresultService userMbtiresultService;
 
     @Test
     public void testQuestion()
@@ -32,6 +40,17 @@ class SelfmanageApplicationTests {
         ad.setGmtCreate(111l);
         ad.setPos("111");
         adMapper.insert(ad);
+    }
+
+    @Test
+    public void teatGetMbtiResult()
+    {
+        User user = new User();
+        user.setId(777l);
+        List<MbtiResultVo> mbtiResultVos = userMbtiresultService.selectAllMbtiResult(1, 10, user);
+        for (MbtiResultVo resultVo: mbtiResultVos){
+            System.out.println("result:"+resultVo.toString());
+        }
     }
 
 }

@@ -1,12 +1,17 @@
 package com.cloudinwind.selfmanage.util;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
@@ -167,5 +172,35 @@ public class JavaMailUtils {
         message.saveChanges();
 
         return message;
+    }
+
+
+
+    public static JavaMailSender mailSender;
+
+    public static void sendMailCharacterFile(String to, String subject, String text, String base64Info) {
+        String emailContent = "性格测试结果";
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = null;
+        File file = null;
+        try {
+            helper = new MimeMessageHelper(message, true);
+            helper.setFrom(myEmailAccount);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(emailContent, true);
+            file = Base64Util2.decodeBase64(base64Info,new File("D://"+to+".pdf"));
+            FileSystemResource attachFile = new FileSystemResource(file);
+            helper.addAttachment("性格测试结果.pdf",file);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        mailSender.send(message);
+
+        //删除文件
+        if (file!=null) {
+            file.delete();
+        }
+
     }
 }
