@@ -1,0 +1,312 @@
+<!--总的 数据分析页面-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <link rel="stylesheet" href="/time/layui/css/layui.css">
+    <script src="/time/layui/layui.js"></script>
+    <script src="/time/js/echarts.js"></script>
+    <script src="/time/js/echarts.js.map"></script>
+    <script src="/time/js/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+</head>
+
+<body>
+
+<h3 style="text-align:center;">月分析</h3>
+<div>
+    <div id="taskLabelPie" style="width: 450px;height:360px;float: left"></div>
+
+    <div id="taskPriorityPie" style="width: 450px;height:360px;float: left"></div>
+</div>
+
+<div style="clear: both;">
+    <div id="taskWeekLine" style="width: 1050px;height: 500px;"></div>
+</div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var taskLabelPie = echarts.init(document.getElementById("taskLabelPie"))
+    var taskPriorityPie = echarts.init(document.getElementById("taskPriorityPie"))
+
+    var taskWeekLine = echarts.init(document.getElementById("taskWeekLine"))
+    // var taskPriorityBar = echarts.init(document.getElementById("taskPriorityBar"))
+
+    layui.use(['table','jquery','form','tree', 'laydate'],function() {
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.jquery;
+        var tree = layui.tree;
+        var laydate = layui.laydate;
+
+
+        $.ajax({
+            url: '/task/selectUserTaskGroupByLabelMonth',
+            dataType: 'JSON',
+            contentType: "application/json;charset=UTF-8",
+            type: 'GET',
+            success: function (result) {
+                console.log("1111111")
+                console.log(result.data)
+
+                // 饼状图数据
+                let labelPie=[]
+                // 柱状图数据
+                let dataY=[]
+                let dataBar=[]
+                resultData = result.data
+                for (let i=0; i<resultData.length; i++)
+                {
+                    // 饼状图
+                    var tt = {value: resultData[i]['sumDuration'], name: resultData[i]['labelName']}
+                    labelPie.push(tt)
+                    // 柱状图
+                    dataY.push(resultData[i]['labelName'])
+                    dataBar.push(resultData[i]['sumDuration'])
+                }
+
+                // 分类占比 饼状图
+                taskLabelOption = {
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    title: {
+                        text: "分类占比",
+                        left: "center"
+                    },
+                    legend: {
+                        top: '8%',
+                        left: 'center'
+                    },
+                    series: [
+                        {
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '25',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            data: labelPie
+                        }
+                    ]
+                };
+
+                taskLabelPie.setOption(taskLabelOption)
+
+
+
+            }
+        });
+
+        $.ajax({
+            url: '/task/selectUserTaskGroupByPriorityMonth',
+            dataType: 'JSON',
+            contentType: "application/json;charset=UTF-8",
+            type: 'GET',
+            // data:{nowDate: nowDate1},
+            success: function (result) {
+                console.log("1111111")
+                console.log("priority", result.data)
+
+
+                // 饼状图数据
+                let priorityPie=[]
+                // 柱状图数据
+                let dataY=[]
+                let dataBar=[]
+                // 遍历json数据, 重新组合成echarts显示的数据
+                resultData = result.data
+                for (let i=0; i<resultData.length; i++)
+                {
+                    let priorityNum = resultData[i]['priority']
+                    // 优先级进行对应
+                    let priorityStr;
+                    if (priorityNum == 0) priorityStr='重要紧急'
+                    else if (priorityNum == 1) priorityStr='重要不紧急'
+                    else if(priorityNum == 2) priorityStr='紧急不重要'
+                    else  priorityStr='不重要不紧急'
+
+                    // 饼状图数据重组
+                    var tt = {value: resultData[i]['sumDuration'], name: priorityStr}
+                    priorityPie.push(tt)
+                    // 柱状图数据重组
+                    dataY.push(priorityStr)
+                    dataBar.push(resultData[i]['sumDuration'])
+                }
+
+                // 优先级 饼状图
+                taskPriorityOption = {
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    title: {
+                        text: "优先级占比",
+                        left: "center"
+                    },
+                    legend: {
+                        top: '8%',
+                        left: 'center'
+                    },
+                    series: [
+                        {
+                            name: '占比',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: false,
+                            itemStyle: {
+                                borderRadius: 10,
+                                borderColor: '#fff',
+                                borderWidth: 2
+                            },
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '25',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            data: priorityPie
+                        }
+                    ]
+                };
+
+                taskPriorityPie.setOption(taskPriorityOption)
+
+            }
+        });
+
+        // 获取几天之前或几天之后的日期
+        // aa为正, 表示之后的日期, aa为-, 表示之前的日期
+        function getDate(aa){
+            var date1 = new Date();
+            var time1=date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();//time1表示当前时间
+            var date2 = new Date(date1);
+            date2.setDate(date1.getDate()+aa);
+
+            var year = date2.getFullYear();
+            var month = date2.getMonth()+1;
+            var day = date2.getDate();
+
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+
+            var time2 = year +"-"+ month +"-"+ day;
+
+            return time2;
+        }
+
+        $.ajax({
+            url: '/task/taskAnalysisMonth',
+            dataType: 'JSON',
+            contentType: "application/json;charset=UTF-8",
+            type: 'GET',
+            success: function (result) {
+                console.log("1111111")
+                console.log("taskAnalysisWeek", result.data)
+
+                let resultDataAll = result.data[0]
+                let resultDataFinished = result.data[1]
+
+                let xData = []
+                let allData = []
+                let finishedData = []
+
+                for (let i=-29; i<=0; i++){
+                    var dateDay = getDate(i)
+                    xData.push(dateDay)
+                    allData.push(resultDataAll[dateDay])
+                    finishedData.push(resultDataFinished[dateDay])
+                }
+
+                console.log("-------------")
+                console.log("XData:", xData)
+                console.log("All:", resultDataAll)
+                console.log("Finished:", finishedData)
+
+                taskWeekOption = {
+                    title: {
+                        text: '任务变化',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        top:'6%',
+                        data: ['已完成', '总任务']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: xData
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '已完成',
+                            type: 'line',
+                            data: finishedData
+                        },
+                        {
+                            name: '总任务',
+                            type: 'line',
+                            data: allData
+                        },
+                    ]
+                };
+
+                taskWeekLine.setOption(taskWeekOption)
+
+            }
+        });
+    })
+
+
+
+
+
+
+</script>
+</body>
+
+
+</html>
