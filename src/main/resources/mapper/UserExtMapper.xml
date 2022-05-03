@@ -31,6 +31,7 @@
         limit #{offset},#{size}
     </select>
 
+    <!--查询用户数量-->
     <select id="count" parameterType="com.cloudinwind.selfmanage.dto.UserQueryDTO"
             resultType="java.lang.Integer">
         select count(*) from user
@@ -52,5 +53,60 @@
         </where>
     </select>
 
+
+
+    <!--查询指定用户数量数据-->
+    <select id="selectAdminUser" parameterType="com.cloudinwind.selfmanage.dto.UserQueryDTO"
+        resultType="com.cloudinwind.selfmanage.entity.User">
+        select *
+        from user
+        <where>
+            <if test="userQueryDTO.id != null">
+                and id = #{userQueryDTO.id}
+            </if>
+            <if test="userQueryDTO.name != null and userQueryDTO.name != ''">
+                and name = #{userQueryDTO.name}
+            </if>
+            <if test="userQueryDTO.email != null and userQueryDTO.email != ''">
+                and email = #{userQueryDTO.email}
+            </if>
+            <if test="userQueryDTO.phone != null and userQueryDTO.phone != ''">
+                and phone = #{userQueryDTO.phone}
+            </if>
+            <if test="userQueryDTO.startDateCondition != null and userQueryDTO.startDateCondition != '' ">
+                and create_time &gt;= #{userQueryDTO.startDateCondition}
+            </if>
+            <if test="userQueryDTO.endDateCondition != null and userQueryDTO.endDateCondition != '' ">
+                and create_time &lt;= #{userQueryDTO.endDateCondition}
+            </if>
+        </where>
+    </select>
+
+    <!--查询所有用户进行用户管理-->
+    <select id="selectUserAll" parameterType="com.cloudinwind.selfmanage.vo.admin.UserVo"
+            resultType="com.cloudinwind.selfmanage.vo.admin.UserVo">
+        select u.*, ua.group_id from user u, user_account ua where u.id = ua.user_id
+        <where>
+            <if test="userVo.id != null">
+                and u.id = #{userVo.id}
+            </if>
+            <if test="userVo.name != null and userVo.name != ''">
+                and u.name like concat(concat('%',#{userVo.name}),'%')
+            </if>
+            <if test="userVo.email != null and userVo.email != ''">
+                and u.email = #{userVo.email}
+            </if>
+            <if test="userVo.phone != null and userVo.phone != ''">
+                and u.phone = #{userVo.phone}
+            </if>
+            <if test="userVo.startDateCondition != null and userVo.startDateCondition != '' ">
+                and u.create_time &gt;= #{userVo.startDateCondition}
+            </if>
+            <if test="userVo.endDateCondition != null and userVo.endDateCondition != '' ">
+                and u.create_time &lt;= #{userVo.endDateCondition}
+            </if>
+        </where>
+        limit ${(page-1)*limit },#{limit}
+    </select>
 
 </mapper>

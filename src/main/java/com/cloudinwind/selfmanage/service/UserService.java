@@ -22,6 +22,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,7 +51,7 @@ public class UserService {
         return null;
     }
 
-    public ResultDTO repass(Long user_id,String nowpass,String pass){
+    public ResultDTO repass(Long user_id, String nowpass, String pass){
         User user = userMapper.selectByPrimaryKey(user_id);
         if((StringUtils.isBlank(nowpass)&&StringUtils.isBlank(user.getPassword()))||DigestUtils.sha256Hex(nowpass+salt).equals(user.getPassword())){
             user.setPassword(DigestUtils.sha256Hex(pass+salt));
@@ -75,6 +76,8 @@ public class UserService {
             user.setName(getUserName("Github"));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setCreateTime(new Date());
+            user.setUpdateTime(new Date());
             userMapper.insert(user);
            UserExample userExample2 = new UserExample();
            userExample2.createCriteria()
@@ -116,6 +119,8 @@ public class UserService {
         if (users.size() == 0) {  // 插入
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setCreateTime(new Date());
+            user.setUpdateTime(new Date());
             if(user.getName()==null|| StringUtils.isBlank(user.getName()))
                 user.setName(getUserName("微博"));
             if (loginuser == null) {//创建
@@ -170,6 +175,8 @@ public class UserService {
 
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setCreateTime(new Date());
+            user.setUpdateTime(new Date());
             if(user.getName()==null|| StringUtils.isBlank(user.getName()))
                 user.setName(getUserName("Baidu"));
             if (loginuser == null) {//创建
@@ -211,7 +218,7 @@ public class UserService {
         return 0;
     }
 
-    public void createNewBaidu(User user,UserInfo userInfo) {
+    public void createNewBaidu(User user, UserInfo userInfo) {
         user.setGmtCreate(System.currentTimeMillis());
         user.setGmtModified(user.getGmtCreate());
         if(user.getName()==null|| StringUtils.isBlank(user.getName()))
@@ -334,6 +341,8 @@ public class UserService {
                 updateUser.setAvatarUrl("/images/avatar/"+(int)(Math.random()*11)+".jpg");
                 updateUser.setGmtCreate(System.currentTimeMillis());
                 updateUser.setGmtModified(updateUser.getGmtCreate());
+                updateUser.setCreateTime(new Date());
+                updateUser.setUpdateTime(new Date());
                 userMapper.insert(updateUser);
                 UserExample example = new UserExample();
                 example.createCriteria()
@@ -403,6 +412,8 @@ public class UserService {
             updateUser.setAvatarUrl("/images/avatar/"+(int)(Math.random()*11)+".jpg");
             updateUser.setGmtCreate(System.currentTimeMillis());
             updateUser.setGmtModified(updateUser.getGmtCreate());
+            updateUser.setCreateTime(new Date());
+            updateUser.setUpdateTime(new Date());
             userMapper.insert(updateUser);
             UserExample example = new UserExample();
             example.createCriteria()
@@ -425,6 +436,8 @@ public class UserService {
         if (users.size() == 0) {  // 插入
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setCreateTime(new Date());
+            user.setUpdateTime(new Date());
             if(user.getName()==null|| StringUtils.isBlank(user.getName()))
                 user.setName(getUserName("QQ"));
             if (loginuser == null) {//创建
@@ -508,22 +521,26 @@ public class UserService {
         userAccount.setScore1(0);
         userAccount.setScore2(0);
         userAccount.setScore3(0);
+        userAccount.setCreateTime(new Date());
+        userAccount.setUpdateTime(new Date());
         return userAccount;
     }
 
-    public void initUserTable(User user,UserInfo userInfo){
+    public void initUserTable(User user, UserInfo userInfo){
        // UserInfo userInfo = new UserInfo();
         userInfo.setUserId(user.getId());
         userInfoMapper.insert(userInfo);
         UserAccount userAccount = new UserAccount();
         userAccount = initUserAccount(userAccount);
         userAccount.setUserId(user.getId());
+        userAccount.setCreateTime(new Date());
+        userAccount.setUpdateTime(new Date());
         userAccountMapper.insert(userAccount);
         userInfo=null;
         userAccount=null;
     }
 
-    public void updateUserInfo(User user,User updateUser,UserDTO loginuser,UserInfo userInfo){
+    public void updateUserInfo(User user, User updateUser, UserDTO loginuser, UserInfo userInfo){
         updateUser.setGmtModified(System.currentTimeMillis());
         updateUser.setToken(user.getToken());
         //updateUser.setAvatarUrl(user.getAvatarUrl());

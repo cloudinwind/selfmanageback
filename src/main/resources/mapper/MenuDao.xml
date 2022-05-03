@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloudinwind.selfmanage.mapper.admin.MenuDao">
+
+    <select id="queryAllMenusByUserId" resultType="com.cloudinwind.selfmanage.entity.admin.Menu">
+        select * from admin_menu
+                          inner join admin_group_menu trm on admin_menu.menu_id = trm.menu_id
+        where trm.group_id in(
+            select group_id from user_account  where user_account.user_id=#{userId}
+        );
+    </select>
+    <select id="queryAllPermsByUserId" resultType="java.lang.String">
+        select perms from admin_menu
+                              inner join admin_group_menu trm on admin_menu.menu_id = trm.menu_id
+        where trm.group_id in(
+           select group_id from user_account  where user_account.user_id=#{userId});
+    </select>
+</mapper>

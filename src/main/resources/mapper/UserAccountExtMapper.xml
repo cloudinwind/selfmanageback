@@ -32,4 +32,63 @@
     where user_id = #{userId}
     </update>
 
+    <!--查询指定用户数量数据-->
+    <select id="getAllUserAccount" resultType="com.cloudinwind.selfmanage.vo.admin.UserAccountVo">
+       select create_time, count(*) count_user from user_account
+        <where>
+            <if test="userAccountVo.id != null">
+                and id = #{userAccountVo.id}
+            </if>
+            <if test="userAccountVo.userId != null">
+                and user_id = #{userAccountVo.userId}
+            </if>
+            <if test="userAccountVo.groupId != null">
+                and group_id = #{userAccountVo.groupId}
+            </if>
+            <if test="userAccountVo.vipRank != null">
+                and vip_rank = #{userAccountVo.vipRank}
+            </if>
+            <if test="userAccountVo.score != null">
+                and score = #{userAccountVo.score}
+            </if>
+            <if test="userAccountVo.score1 != null">
+                and score1 = #{userAccountVo.score1}
+            </if>
+            <if test="userAccountVo.score2 != null">
+                and score2 = #{userAccountVo.score2}
+            </if>
+            <if test="userAccountVo.score3 != null">
+                and score3 = #{userAccountVo.score3}
+            </if>
+            <if test="userAccountVo.startDateCondition != null">
+                and create_time >= #{userAccountVo.startDateCondition}
+            </if>
+            <if test="userAccountVo.endDateCondition != null">
+                and create_time &lt;= #{userAccountVo.endDateCondition}
+            </if>
+            <if test="userAccountVo.nowDate != null">
+                and date(create_time) = #{userAccountVo.nowDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="getAllUserAccountGroupByTime" resultType="com.cloudinwind.selfmanage.vo.admin.UserAccountVo">
+        select count(*) count_user, date(create_time) create_time from user_account
+        <where>
+            <if test="userAccountVo.groupId != null">
+                and group_id = #{userAccountVo.groupId}
+            </if>
+            <if test="userAccountVo.startDateCondition != null">
+                and create_time >= #{userAccountVo.startDateCondition}
+            </if>
+            <if test="userAccountVo.endDateCondition != null">
+                and create_time &lt;= #{userAccountVo.endDateCondition}
+            </if>
+            <if test="userAccountVo.nowDate != null">
+                and date(create_time) = #{userAccountVo.nowDate}
+            </if>
+        </where>
+        group by date(create_time)
+    </select>
+
 </mapper>
