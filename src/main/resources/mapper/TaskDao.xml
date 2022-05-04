@@ -320,30 +320,30 @@
 
     <!--按照时间分组查询-->
     <select id="selectUserTaskGroupByUpdateTime" resultType="com.cloudinwind.selfmanage.vo.time.TaskVo">
-        select date(update_time) update_time, sum(duration) sum_duration
+        select date(time_task.update_time) update_time, sum(time_task.duration) sum_duration
         from time_user_task, time_task
         where time_user_task.user_id =  #{taskVo.userId} and time_task.task_id = time_user_task.task_id
         and time_task.flag=0 and date(time_task.update_time) >= #{taskVo.startDateCondition}
         and date(time_task.update_time) &lt;= #{taskVo.endDateCondition}
-        GROUP BY date(update_time)
+        GROUP BY date(time_task.update_time)
     </select>
 
     <select id="selectTaskGroupByUpdateTime" resultType="com.cloudinwind.selfmanage.vo.time.TaskVo">
-       select count(task_id) sum_duration, date(update_time) update_time
+       select count(time_task.task_id) sum_duration, date(update_time) update_time
        from time_task
        where date(time_task.update_time) >= #{taskVo.startDateCondition}
        and date(time_task.update_time) &lt;= #{taskVo.endDateCondition}
-       GROUP BY date(update_time)
+       GROUP BY date(time_task.update_time)
     </select>
 
     <!--已完成-->
     <select id="selectFinishedUserTaskGroupByUpdateTime" resultType="com.cloudinwind.selfmanage.vo.time.TaskVo">
-        select date(update_time) update_time, sum(duration) sum_duration
+        select date(time_task.update_time) update_time, sum(duration) sum_duration
         from time_user_task, time_task
         where time_user_task.user_id =  #{taskVo.userId} and time_task.task_id = time_user_task.task_id
         and time_task.flag=0 and date(time_task.update_time) >= #{taskVo.startDateCondition}
         and date(time_task.update_time) &lt;= #{taskVo.endDateCondition} and finished=#{taskVo.finished}
-        GROUP BY date(update_time)
+        GROUP BY date(time_task.update_time)
     </select>
 </mapper>
 

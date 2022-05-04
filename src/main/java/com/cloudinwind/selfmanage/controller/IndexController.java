@@ -12,7 +12,7 @@ public class IndexController {
     @GetMapping(value = {"/"})
     public String index(HttpServletRequest request,
                         Model model) {
-        return "redirect:/forum";
+        return "redirect:/index2";
     }
 
     @GetMapping(value = {"/index2"})

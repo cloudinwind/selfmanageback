@@ -1,16 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SelfManage</title>
 
-<div>
-    <a href="/forum">论坛交流</a>
-    <a href="/toTimeHome">时间管理</a>
-    <a href="/blog">知识管理</a>
-    <a href="/analysis">自我认知</a>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/admin2/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin2/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" style="margin-bottom: 20px;">
+        <div class="container">
+            <a href="/" class="navbar-brand">
+                <img src="/images/N80.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">SelfManage</span>
+            </a>
+
+            <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/forum" class="nav-link">交流</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">源码</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                            <li><a href="https://github.com/cloudinwind/selfmanage" class="dropdown-item">Github </a></li>
+                            <li><a href="https://github.com/cloudinwind/selfmanage" class="dropdown-item">Gitee</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- SEARCH FORM -->
+                <form class="form-inline ml-0 ml-md-3">
+                    <div class="input-group input-group-sm">
+                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-navbar" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right navbar links -->
+            <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                <!-- Messages Dropdown Menu -->
+                <th:block th:if="${loginUser==null}">
+                    <li class="nav-item">
+                        <a href="/sso/login" class="nav-link">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/sso/register" class="nav-link">注册</a>
+                    </li>
+                </th:block>
+
+                <th:block th:if="${loginUser!=null}">
+                    <li class="nav-item">
+                        <a href="/user/set/account" class="nav-link"><img th:src="${loginUser.avatarUrl}" style="width: 60px;height: 80px;border-radius:100%"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/user/set/account" class="nav-link" th:text="${loginUser.name}"></a>
+                    </li>
+                </th:block>
+
+            </ul>
+        </div>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- /.content-header -->
+        <div class="content-header">
+            <div class="container">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">首页导航</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Layout</a></li> -->
+                            <li class="breadcrumb-item active">Home</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content" >
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-lg-6">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title m-0">时间管理</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">更好的时间规划</h6>
+
+                            <p class="card-text">细致化规划时间、回顾任务安排,通过整体分析完善生活</p>
+                            <th:block th:if="${loginUser==null}">
+                                <a href="/sso/login" class="btn btn-primary">Go it</a>
+                            </th:block>
+
+                            <th:block th:if="${loginUser!=null}">
+                                <a href="/toTimeHome" class="btn btn-primary">Go it</a>
+                            </th:block>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title m-0">休闲交流</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">认识新朋友</h6>
+
+                            <p class="card-text">提出问题,分享知识, 认识新朋友</p>
+                            <a href="/forum" class="btn btn-primary">Go it</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title m-0">知识管理</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">构建个人知识架构</h6>
+
+                            <p class="card-text">在在知识管理中发布个人感想，对所学所感进行分类、归档</p>
+
+                            <th:block th:if="${loginUser==null}">
+                                <a href="/sso/login" class="btn btn-primary">Go it</a>
+                            </th:block>
+
+                            <th:block th:if="${loginUser!=null}">
+                                <a href="/blog" class="btn btn-primary">Go it</a>
+                            </th:block>
+                        </div>
+                    </div>
+
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5 class="card-title m-0">自我分析</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">全方位认识自我</h6>
+
+                            <p class="card-text">通过性格、心理、感情等方面的分析认识自己</p>
+                            <th:block th:if="${loginUser==null}">
+                                <a href="/sso/login" class="btn btn-primary">Go it</a>
+                            </th:block>
+
+                            <th:block th:if="${loginUser!=null}">
+                                <a href="/analysis" class="btn btn-primary">Go somewhere</a>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-md-6 -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
 </div>
+<!-- /.content-wrapper -->
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+
+<!-- Main Footer -->
+<footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+        Anything you want
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy;2021-2022 <a href="https://github.com/cloudinwind/selfmanage">SelfManage</a>.</strong> All rights reserved.
+</footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="/admin2/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/admin2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/admin2/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/admin2/dist/js/demo.js"></script>
 </body>
 </html>
