@@ -12,10 +12,14 @@ import com.cloudinwind.selfmanage.util.DateUtils;
 import com.cloudinwind.selfmanage.vo.admin.LabelVo;
 import com.cloudinwind.selfmanage.vo.time.TaskVo;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.management.Query;
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,4 +78,16 @@ public class TimeManageController extends BaseController {
         return success(mapHashMap);
 
     }
+
+    @RequestMapping("selectAllTaskGroupByLabel")
+    public ReturnBean selectAllTaskGroupByLabel(@RequestParam(required = false, value = "nowDate")String nowDate,
+                                                    HttpServletRequest request){
+
+        TaskVo taskVo = new TaskVo();
+
+        List<TaskVo> taskVos = taskService.selectAllTaskGroupByLabel(taskVo);
+
+        return success(taskVos, "success");
+    }
+
 }

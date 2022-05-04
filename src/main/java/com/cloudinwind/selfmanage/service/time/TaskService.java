@@ -36,5 +36,7 @@ public interface TaskService extends IService<Task> {
 
     List<TaskVo> selectTaskGroupByUpdateTime(TaskVo taskVo);
 
+    List<TaskVo> selectAllTaskGroupByLabel(TaskVo taskVo);
+
 }
 

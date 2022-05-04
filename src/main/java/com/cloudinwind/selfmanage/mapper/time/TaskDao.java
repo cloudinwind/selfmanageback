@@ -38,5 +38,8 @@ public interface TaskDao extends BaseMapper<Task> {
 
     List<TaskVo> selectTaskGroupByUpdateTime(@Param("taskVo") TaskVo taskVo);
 
+    List<TaskVo> selectAllTaskGroupByLabel(@Param("taskVo") TaskVo taskVo);
+
+
 }
 

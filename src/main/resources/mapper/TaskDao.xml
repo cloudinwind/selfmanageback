@@ -345,5 +345,16 @@
         and date(time_task.update_time) &lt;= #{taskVo.endDateCondition} and finished=#{taskVo.finished}
         GROUP BY date(time_task.update_time)
     </select>
+
+
+    <!--总的各分类占比-->
+    <select id="selectAllTaskGroupByLabel" resultType="com.cloudinwind.selfmanage.vo.time.TaskVo">
+       select time_label.label_name, tt.sum_duration
+    from time_label,
+    (select sum(duration) sum_duration, time_task.label_id from time_task
+    GROUP BY label_id) as tt
+    where time_label.label_id = tt.label_id
+    </select>
+
 </mapper>
 

@@ -76,5 +76,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskDao, Task> implements TaskS
     public List<TaskVo> selectTaskGroupByUpdateTime(TaskVo taskVo) {
         return taskDao.selectTaskGroupByUpdateTime(taskVo);
     }
+
+    @Override
+    public List<TaskVo> selectAllTaskGroupByLabel(TaskVo taskVo) {
+        return taskDao.selectAllTaskGroupByLabel(taskVo);
+    }
 }
 
