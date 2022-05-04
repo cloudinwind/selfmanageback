@@ -2,6 +2,7 @@ package com.cloudinwind.selfmanage.mapper.time;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cloudinwind.selfmanage.entity.time.Label;
+import com.cloudinwind.selfmanage.vo.admin.LabelVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface LabelDao extends BaseMapper<Label> {
 
 
     List<Label> selectByUserId(@Param("userId") Integer userId);
+
+    List<LabelVo> selectLabelGroupByUpdateTime(@Param("labelVo")LabelVo labelVo);
 
 }
 

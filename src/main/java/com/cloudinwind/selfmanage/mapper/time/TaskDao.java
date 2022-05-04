@@ -30,9 +30,13 @@ public interface TaskDao extends BaseMapper<Task> {
     List<TaskVo> selectUserTaskGroupByLabelTime(@Param("taskVo") TaskVo taskVo);
     List<TaskVo> selectUserTaskGroupByPriorityTime(@Param("taskVo") TaskVo taskVo);
     List<TaskVo> selectUserTaskGroupByUpdateTime(@Param("taskVo") TaskVo taskVo);
+
     List<TaskVo> selectFinishedUserTaskGroupByUpdateTime(@Param("taskVo") TaskVo taskVo);
 
 
     Integer selectTaskDuration(@Param("taskVo") TaskVo taskVo);
+
+    List<TaskVo> selectTaskGroupByUpdateTime(@Param("taskVo") TaskVo taskVo);
+
 }
 

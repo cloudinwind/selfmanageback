@@ -71,5 +71,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskDao, Task> implements TaskS
     public Integer selectTaskDuration(TaskVo taskVo) {
         return taskDao.selectTaskDuration(taskVo);
     }
+
+    @Override
+    public List<TaskVo> selectTaskGroupByUpdateTime(TaskVo taskVo) {
+        return taskDao.selectTaskGroupByUpdateTime(taskVo);
+    }
 }
 

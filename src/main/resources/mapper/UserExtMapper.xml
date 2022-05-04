@@ -83,8 +83,7 @@
     </select>
 
     <!--查询所有用户进行用户管理-->
-    <select id="selectUserAll" parameterType="com.cloudinwind.selfmanage.vo.admin.UserVo"
-            resultType="com.cloudinwind.selfmanage.vo.admin.UserVo">
+    <select id="selectUserAll" resultType="com.cloudinwind.selfmanage.vo.admin.UserVo">
         select u.*, ua.group_id from user u, user_account ua where u.id = ua.user_id
         <where>
             <if test="userVo.id != null">

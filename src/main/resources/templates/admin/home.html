@@ -16,13 +16,13 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                    <img th:src="${adminUser.avatarUrl}"
                          class="layui-nav-img">
                     <span th:text="${adminUser.name}"></span>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">修改密码</a></dd>
+                    <dd><a href="/user/set/account" target="_blank">基本资料</a></dd>
+<!--                    <dd><a href="">修改密码</a></dd>-->
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="logout">注销</a></li>
@@ -56,7 +56,7 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <iframe id="iframMain" src="ques/mbtiQuestionManage" style="width: 100%;height: 100%"></iframe>
+        <iframe id="iframMain" src="/admin/system/overAllAnalysis" style="width: 100%;height: 100%"></iframe>
     </div>
 
     <div class="layui-footer">

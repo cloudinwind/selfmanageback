@@ -328,6 +328,14 @@
         GROUP BY date(update_time)
     </select>
 
+    <select id="selectTaskGroupByUpdateTime" resultType="com.cloudinwind.selfmanage.vo.time.TaskVo">
+       select count(task_id) sum_duration, date(update_time) update_time
+       from time_task
+       where date(time_task.update_time) >= #{taskVo.startDateCondition}
+       and date(time_task.update_time) &lt;= #{taskVo.endDateCondition}
+       GROUP BY date(update_time)
+    </select>
+
     <!--已完成-->
     <select id="selectFinishedUserTaskGroupByUpdateTime" resultType="com.cloudinwind.selfmanage.vo.time.TaskVo">
         select date(update_time) update_time, sum(duration) sum_duration

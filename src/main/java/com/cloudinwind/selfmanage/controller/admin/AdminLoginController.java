@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("admin")
 public class AdminLoginController extends BaseController {
@@ -27,7 +29,8 @@ public class AdminLoginController extends BaseController {
     @RequestMapping("login")
     public ReturnBean adminLogin(@RequestBody User user,
                                  @RequestParam(required = false, defaultValue = "2", value = "type") Integer type,
-                                 Model model){
+                                 Model model,
+                                 HttpServletRequest request){
 
         System.out.println(user.toString());
         //1为手机号，2为邮箱号
@@ -36,6 +39,7 @@ public class AdminLoginController extends BaseController {
         System.out.println("resultDto: "+resultDTO.toString());
         if(200==resultDTO.getCode()){
             UserDTO userDTO = (UserDTO) resultDTO.getData();
+            request.setAttribute("loginUser", userDTO);
             return success(userDTO, "成功登录");
         }
         return fail(resultDTO, "登陆失败");

@@ -3,6 +3,7 @@ package com.cloudinwind.selfmanage.service.time;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloudinwind.selfmanage.entity.time.Task;
 import com.cloudinwind.selfmanage.vo.time.TaskVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -32,6 +33,8 @@ public interface TaskService extends IService<Task> {
 
 
     Integer selectTaskDuration( TaskVo taskVo);
+
+    List<TaskVo> selectTaskGroupByUpdateTime(TaskVo taskVo);
 
 }
 

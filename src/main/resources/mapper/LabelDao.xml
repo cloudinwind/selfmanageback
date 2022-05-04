@@ -18,5 +18,13 @@
     </select>
 
 
+    <select id="selectLabelGroupByUpdateTime" resultType="com.cloudinwind.selfmanage.vo.admin.LabelVo">
+       select count(label_id) sum_duration, date(update_time) update_time
+       from time_label
+       where date(update_time) >= #{labelVo.startDateCondition}
+       and date(update_time) &lt;= #{labelVo.endDateCondition}
+       GROUP BY date(update_time)
+    </select>
+
 </mapper>
 

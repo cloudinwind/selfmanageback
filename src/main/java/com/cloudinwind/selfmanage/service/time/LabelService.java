@@ -2,6 +2,8 @@ package com.cloudinwind.selfmanage.service.time;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloudinwind.selfmanage.entity.time.Label;
+import com.cloudinwind.selfmanage.vo.admin.LabelVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +16,6 @@ import java.util.List;
 public interface LabelService extends IService<Label> {
 
     List<Label> selectByUserId(Integer userId);
-
+    List<LabelVo> selectLabelGroupByUpdateTime(LabelVo labelVo);
 }
 

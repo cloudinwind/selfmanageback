@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloudinwind.selfmanage.entity.time.Label;
 import com.cloudinwind.selfmanage.mapper.time.LabelDao;
 import com.cloudinwind.selfmanage.service.time.LabelService;
+import com.cloudinwind.selfmanage.vo.admin.LabelVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +25,11 @@ public class LabelServiceImpl extends ServiceImpl<LabelDao, Label> implements La
     @Override
     public List<Label> selectByUserId(Integer userId) {
         return labelDao.selectByUserId(userId);
+    }
+
+    @Override
+    public List<LabelVo> selectLabelGroupByUpdateTime(LabelVo labelVo) {
+        return labelDao.selectLabelGroupByUpdateTime(labelVo);
     }
 }
 

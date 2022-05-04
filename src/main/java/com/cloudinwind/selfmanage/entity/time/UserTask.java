@@ -2,10 +2,14 @@ package com.cloudinwind.selfmanage.entity.time;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+
+import java.util.Date;
 
 /**
  * (UserTask)表实体类
  */
+@Data
 @TableName("time_user_task")
 public class UserTask extends Model<UserTask> {
     
@@ -13,22 +17,10 @@ public class UserTask extends Model<UserTask> {
     
     private Integer taskId;
 
+    private Date createTime;
 
-    public Integer getUserId() {
-        return userId;
-    }
+    private Date updateTime;
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
-    }
 
 }
 

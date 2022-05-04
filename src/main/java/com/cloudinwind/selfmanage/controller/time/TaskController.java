@@ -85,6 +85,8 @@ public class TaskController extends BaseController {
         UserTask userTask = new UserTask();
         userTask.setTaskId(task.getTaskId());
         userTask.setUserId(taskVo.getUserId());
+        userTask.setCreateTime(new Date());
+        userTask.setUpdateTime(new Date());
         userTaskService.save(userTask);
 
         return success(taskVo);
