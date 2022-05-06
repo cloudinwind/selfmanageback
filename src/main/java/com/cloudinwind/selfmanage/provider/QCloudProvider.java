@@ -393,7 +393,7 @@ public class QCloudProvider {
             ClientProfile clientProfile = new ClientProfile();
             clientProfile.setHttpProfile(httpProfile);
 
-            NlpClient client = new NlpClient(cred, "ap-guangzhou", clientProfile);
+            NlpClient client = new NlpClient(cred, "ap-chengdu", clientProfile);
 
             String params = "{\"Num\":"+num+",\"Text\":\""+text+"\"}";
             KeywordsExtractionRequest req = KeywordsExtractionRequest.fromJsonString(params, KeywordsExtractionRequest.class);

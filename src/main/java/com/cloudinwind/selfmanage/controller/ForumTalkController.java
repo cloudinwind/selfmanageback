@@ -79,6 +79,7 @@ public class ForumTalkController {
     @GetMapping(value = {"/t/{id}"})
     public String comment(@PathVariable(name = "id") Long id, HttpServletRequest request, Model model){
 
+        System.out.println("comment:"+id);
         UserDTO viewUser = (UserDTO)request.getAttribute("loginUser");
 
         TalkVO talkVO;
@@ -86,6 +87,7 @@ public class ForumTalkController {
         talkQueryDTO.setId(id);
         talkQueryDTO.convert();
         PaginationDTO paginationDTO = talkService.list(talkQueryDTO,viewUser);
+        System.out.println("111111111111111111");
         if(paginationDTO.getTotalCount()!=1)
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         else{

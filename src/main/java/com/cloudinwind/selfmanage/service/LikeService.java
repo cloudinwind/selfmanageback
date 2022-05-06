@@ -16,25 +16,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class LikeService {
 
-    @Autowired
+    @Resource
     private ThumbMapper thumbMapper;
-    @Autowired
+    @Resource
     private CommentMapper commentMapper;
-    @Autowired
+    @Resource
     private ThumbExtMapper thumbExtMapper;
-    @Autowired
+    @Resource
     private NotificationMapper notificationMapper;
-    @Autowired
+    @Resource
     private QuestionMapper questionMapper;
-    @Autowired
+    @Resource
     private TalkMapper talkMapper;
-    @Autowired
+    @Resource
     private TalkExtMapper talkExtMapper;
 
     @Transactional
@@ -293,7 +294,8 @@ public class LikeService {
         Integer offset = likeQueryDTO.getPage() < 1 ? 0 : likeQueryDTO.getSize() * (likeQueryDTO.getPage() - 1);
         likeQueryDTO.setOffset(offset);
         thumbExample.setOrderByClause(likeQueryDTO.getSort()+" "+likeQueryDTO.getOrder());
-        List<Thumb> thumbs = thumbMapper.selectByExampleWithRowbounds(thumbExample,new RowBounds(likeQueryDTO.getSize()*(likeQueryDTO.getPage()-1), likeQueryDTO.getSize()));
+//        List<Thumb> thumbs = thumbMapper.selectByExampleWithRowbounds(thumbExample,new RowBounds(likeQueryDTO.getSize()*(likeQueryDTO.getPage()-1), likeQueryDTO.getSize()));
+        List<Thumb> thumbs = new ArrayList<>();
         PaginationDTO paginationDTO = new PaginationDTO();
         paginationDTO.setTotalCount(totalCount);
         if (thumbs.size() == 0) {

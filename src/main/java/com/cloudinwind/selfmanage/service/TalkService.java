@@ -105,7 +105,6 @@ public class TalkService {
 
         Integer offset = talkQueryDTO.getPage() < 1 ? 0 : talkQueryDTO.getSize() * (talkQueryDTO.getPage() - 1);
         talkQueryDTO.setOffset(offset);
-
         talkExample.setOrderByClause(talkQueryDTO.getSort()+" "+talkQueryDTO.getOrder());
         List<Talk> talks = talkMapper.selectByExampleWithRowbounds(talkExample,new RowBounds(talkQueryDTO.getSize()*(talkQueryDTO.getPage()-1), talkQueryDTO.getSize()));
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -116,7 +115,6 @@ public class TalkService {
             paginationDTO.setData(new ArrayList<>());
             return paginationDTO;
         }
-
         List<TalkVO> talkVOs = new ArrayList<>();
         TalkVO talkVO;
         for (Talk talk : talks) {
@@ -134,6 +132,7 @@ public class TalkService {
         }
         paginationDTO.setData(talkVOs);
         paginationDTO.setPagination(totalPage,talkQueryDTO.getPage());
+
         return paginationDTO;
 
     }

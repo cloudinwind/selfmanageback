@@ -19,13 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 
 @Component
 public class AliProvider {
 
-    @Autowired
+    @Resource
     private NewsMapper newsMapper;
     @Autowired
     private QCloudProvider qCloudProvider;
@@ -59,16 +60,16 @@ public class AliProvider {
         try {
             Response response = client.newCall(request).execute();
             String string = response.body().string();
-            //System.out.println("json"+string);
+            System.out.println("json"+string);
             JSONObject obj=JSON.parseObject(string);
             Integer showapi_res_code = obj.getInteger("showapi_res_code");
-           // System.out.println("ret_code："+showapi_res_code);
+            System.out.println("ret_code："+showapi_res_code);
             if(showapi_res_code==0){
              JSONObject showapi_res_body = obj.getJSONObject("showapi_res_body");
              JSONObject pagebean = showapi_res_body.getJSONObject("pagebean");
              JSONArray contentlist = pagebean.getJSONArray("contentlist");
              List<NewsDTO> newsDTOs = JSONObject.parseArray(contentlist.toJSONString(), NewsDTO.class);
-               // System.out.println("newsDTOs:"+newsDTOs.size());
+                System.out.println("newsDTOs:"+newsDTOs.size());
                 News news = new News();
                 for (NewsDTO newsDTO : newsDTOs) {
                     BeanUtils.copyProperties(newsDTO, news);

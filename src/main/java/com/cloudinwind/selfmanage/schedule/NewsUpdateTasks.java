@@ -17,7 +17,7 @@ public class NewsUpdateTasks {
     @Autowired
     private AliProvider aliProvider;
 
-    @Scheduled(cron = "0 7 10 * * ?") //每天10点7分更新
+    @Scheduled(cron = "0 7 21 * * ?") //每天10点7分更新
     public void updateDiannaoNewsSchedule() {
         log.info("updateDiannaoNewsSchedule start {}", new Date());
         aliProvider.autoGetNews(NewsColumnEnum.NEWS_COLUMN_DIANNAO.getStrId(),1);

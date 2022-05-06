@@ -25,7 +25,9 @@
     <div class="ui container">
         <div class="ui secondary stackable menu">
             <a th:href="@{/blog/user}"><h1 class="ui pink header item" th:text="${loginUser.name}"></h1>
-                <a href="#" th:href="@{/}" class="m-item item blue m-mobile-hide" th:classappend="${n==1}?'active'"><i
+                <a href="#" th:href="@{/}" class="m-item item blue m-mobile-hide"><i
+                        class=" home icon"></i>平台首页</a>
+                <a href="#" th:href="@{/blog}" class="m-item item blue m-mobile-hide" th:classappend="${n==1}?'active'"><i
                         class=" home icon"></i>知识管理首页</a>
                 <a href="#" th:href="@{/types/-1}" class="m-item violet item m-mobile-hide"
                    th:classappend="${n==2}?'active'"><i class=" idea icon"></i>分类</a>

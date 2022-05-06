@@ -2,9 +2,11 @@ package com.cloudinwind.selfmanage;
 
 import com.cloudinwind.selfmanage.entity.User;
 import com.cloudinwind.selfmanage.entity.forum.Ad;
+import com.cloudinwind.selfmanage.enums.NewsColumnEnum;
 import com.cloudinwind.selfmanage.mapper.AdMapper;
 
 
+import com.cloudinwind.selfmanage.provider.AliProvider;
 import com.cloudinwind.selfmanage.service.analysis.UserMbtiresultService;
 import com.cloudinwind.selfmanage.vo.analysis.MbtiResultVo;
 import org.junit.jupiter.api.Test;
@@ -53,4 +55,11 @@ class SelfmanageApplicationTests {
         }
     }
 
+    @Resource
+    AliProvider provider;
+
+    @Test
+    public void updateNews(){
+        provider.autoGetNews(NewsColumnEnum.NEWS_COLUMN_DIANNAO.getStrId(),1);
+    }
 }
