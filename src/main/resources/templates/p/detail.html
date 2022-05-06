@@ -206,23 +206,6 @@
       </div>
       <!--帖子评论 end-->
 
-      <!--添加评论表单 start-->
-      <div class="layui-form layui-form-pane">
-        <input type="hidden" id="question_id2" th:value="${question.id}">
-        <div class="layui-form-item layui-form-text">
-          <a name="comment"></a>
-          <div class="layui-input-block">
-            <textarea id="comment_content2" th:value="新添加的" name="content" required lay-verify="required" placeholder="请输入内容"  class="layui-textarea talk-editor" style="height: 150px;"></textarea>
-          </div>
-        </div>
-        <div class="layui-form-item">
-          <input type="hidden" name="jid" value="123">
-          <button id="commentQBtn2" class="layui-btn">回复</button>
-        </div>
-      </div>
-      <!--添加评论表单 end-->
-    </div>
-    <!--帖子评论 end-->
 
 
       <form class="layui-form" id="admin-panel" style="display:none">

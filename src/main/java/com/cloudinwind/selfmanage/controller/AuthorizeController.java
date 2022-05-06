@@ -345,7 +345,7 @@ public class AuthorizeController {
     public String logout(HttpServletResponse response) {
         Cookie cookie = cookieUtils.getCookie("token",null,0);
         response.addCookie(cookie);
-        return "redirect:/forum";
+        return "redirect:/";
     }
 
     @PostMapping("/callbackOpenid")

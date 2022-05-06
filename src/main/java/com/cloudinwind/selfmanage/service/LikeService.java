@@ -9,33 +9,31 @@ import com.cloudinwind.selfmanage.enums.NotificationTypeEnum;
 import com.cloudinwind.selfmanage.exception.CustomizeErrorCode;
 import com.cloudinwind.selfmanage.exception.CustomizeException;
 import com.cloudinwind.selfmanage.mapper.*;
-
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class LikeService {
 
-    @Resource
+    @Autowired
     private ThumbMapper thumbMapper;
-    @Resource
+    @Autowired
     private CommentMapper commentMapper;
-    @Resource
+    @Autowired
     private ThumbExtMapper thumbExtMapper;
-    @Resource
+    @Autowired
     private NotificationMapper notificationMapper;
-    @Resource
+    @Autowired
     private QuestionMapper questionMapper;
-    @Resource
+    @Autowired
     private TalkMapper talkMapper;
-    @Resource
+    @Autowired
     private TalkExtMapper talkExtMapper;
 
     @Transactional
@@ -294,8 +292,7 @@ public class LikeService {
         Integer offset = likeQueryDTO.getPage() < 1 ? 0 : likeQueryDTO.getSize() * (likeQueryDTO.getPage() - 1);
         likeQueryDTO.setOffset(offset);
         thumbExample.setOrderByClause(likeQueryDTO.getSort()+" "+likeQueryDTO.getOrder());
-//        List<Thumb> thumbs = thumbMapper.selectByExampleWithRowbounds(thumbExample,new RowBounds(likeQueryDTO.getSize()*(likeQueryDTO.getPage()-1), likeQueryDTO.getSize()));
-        List<Thumb> thumbs = new ArrayList<>();
+        List<Thumb> thumbs = thumbMapper.selectByExampleWithRowbounds(thumbExample,new RowBounds(likeQueryDTO.getSize()*(likeQueryDTO.getPage()-1), likeQueryDTO.getSize()));
         PaginationDTO paginationDTO = new PaginationDTO();
         paginationDTO.setTotalCount(totalCount);
         if (thumbs.size() == 0) {
@@ -318,7 +315,7 @@ public class LikeService {
             return ResultDTO.errorOf("哎呀，该收藏已移除或您无权移除！");
         }
         else {
-            if(thumbDTO.getType()==LikeTypeEnum.TALK.getType()){
+            if(thumbDTO.getType()== LikeTypeEnum.TALK.getType()){
                 Talk talk = new Talk();
                 talk.setId(thumbDTO.getTargetId());
                 talk.setLikeCount(-1);

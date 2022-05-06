@@ -60,6 +60,6 @@ class SelfmanageApplicationTests {
 
     @Test
     public void updateNews(){
-        provider.autoGetNews(NewsColumnEnum.NEWS_COLUMN_DIANNAO.getStrId(),1);
+        provider.autoGetNews(NewsColumnEnum.NEWS_COLUMN_GUONEI.getStrId(),5);
     }
 }

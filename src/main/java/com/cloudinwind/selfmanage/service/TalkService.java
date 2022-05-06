@@ -6,7 +6,6 @@ import com.cloudinwind.selfmanage.entity.forum.TalkExample;
 import com.cloudinwind.selfmanage.enums.LikeTypeEnum;
 import com.cloudinwind.selfmanage.mapper.TalkExtMapper;
 import com.cloudinwind.selfmanage.mapper.TalkMapper;
-
 import com.cloudinwind.selfmanage.util.TimeUtils;
 import com.cloudinwind.selfmanage.vo.TalkVO;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 @Service
@@ -59,7 +57,7 @@ public class TalkService {
     }
 
     @Transactional
-    public Talk updateExt(Talk talk,TalkDTO talkDTO) {
+    public Talk updateExt(Talk talk, TalkDTO talkDTO) {
         if(talk==null){
             talk = new Talk();
             BeanUtils.copyProperties(talkDTO,talk);
@@ -70,7 +68,7 @@ public class TalkService {
     }
 
     @Transactional
-    public Talk update(Talk talk,TalkDTO talkDTO) {
+    public Talk update(Talk talk, TalkDTO talkDTO) {
         if(talk==null){
             talk = new Talk();
             BeanUtils.copyProperties(talkDTO,talk);
@@ -81,7 +79,7 @@ public class TalkService {
     }
 
 
-    public PaginationDTO list(TalkQueryDTO talkQueryDTO,UserDTO view_user){
+    public PaginationDTO list(TalkQueryDTO talkQueryDTO, UserDTO view_user){
         Integer totalPage;
         Integer totalCount = talkExtMapper.count(talkQueryDTO);
         TalkExample talkExample = new TalkExample();
@@ -105,6 +103,7 @@ public class TalkService {
 
         Integer offset = talkQueryDTO.getPage() < 1 ? 0 : talkQueryDTO.getSize() * (talkQueryDTO.getPage() - 1);
         talkQueryDTO.setOffset(offset);
+
         talkExample.setOrderByClause(talkQueryDTO.getSort()+" "+talkQueryDTO.getOrder());
         List<Talk> talks = talkMapper.selectByExampleWithRowbounds(talkExample,new RowBounds(talkQueryDTO.getSize()*(talkQueryDTO.getPage()-1), talkQueryDTO.getSize()));
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -115,6 +114,7 @@ public class TalkService {
             paginationDTO.setData(new ArrayList<>());
             return paginationDTO;
         }
+
         List<TalkVO> talkVOs = new ArrayList<>();
         TalkVO talkVO;
         for (Talk talk : talks) {
@@ -132,7 +132,6 @@ public class TalkService {
         }
         paginationDTO.setData(talkVOs);
         paginationDTO.setPagination(totalPage,talkQueryDTO.getPage());
-
         return paginationDTO;
 
     }

@@ -341,7 +341,7 @@
                 data = checkStatus.data; //获取选中的数据
             switch(obj.event){  // obj.event 对应 lay-event
                 case 'save':
-                    console.log("save-------")
+                    document.getElementById("saveTaskForm").reset();
                     // 添加任务
                     addTask()
                     break;
